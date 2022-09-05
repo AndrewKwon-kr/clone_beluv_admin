@@ -14,7 +14,7 @@
           icon="mdi-account-outline"
         >
           <template #title>
-            Edit Profile — <small class="text-body-1">Complete your profile</small>
+            Edit Profile — <small class="text-body-1">Complete your profiledfdf</small>
           </template>
 
           <v-form>
