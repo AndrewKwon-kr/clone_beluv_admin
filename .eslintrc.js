@@ -9,10 +9,6 @@ module.exports = {
 
   extends: 'vuetify',
 
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
-
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
