@@ -3,15 +3,13 @@
     <v-list-item-avatar>
       <v-img
         :src="
-          require('@/assets/vmd.svg')"
+          require('@/assets/ic-beluv.png')"
       />
     </v-list-item-avatar>
 
     <v-list-item-content class="pl-2">
       <v-list-item-title class="text-h3">
-        <strong class="mr-1 font-weight-black">VMD</strong>
-
-        <span class="primary--text">FREE</span>
+        <strong class="mr-1 font-weight-black">Beluv</strong>
       </v-list-item-title>
     </v-list-item-content>
   </v-list-item>

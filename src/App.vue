@@ -11,8 +11,7 @@
   export default {
     name: 'App',
     metaInfo: {
-      title: 'App',
-      titleTemplate: '%s | Material Dashboard Free',
+      title: 'Clone Beluv Admin',
       htmlAttrs: { lang: 'en' },
       meta: [
         { charset: 'utf-8' },
