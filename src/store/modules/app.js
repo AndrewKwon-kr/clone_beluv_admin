@@ -8,39 +8,20 @@ const state = {
   mini: false,
   items: [
     {
-      title: 'Dashboard',
-      icon: 'mdi-view-dashboard',
+      title: '메인화면',
+      icon: 'mdi-monitor',
       to: '/',
     },
+    
     {
-      title: 'User Profile',
-      icon: 'mdi-account',
+      title: '제품목록',
+      icon: 'mdi-apps',
       to: '/components/profile/',
     },
     {
-      title: 'Regular Tables',
-      icon: 'mdi-clipboard-outline',
+      title: '베럽TV',
+      icon: 'mdi-monitor',
       to: '/tables/regular/',
-    },
-    {
-      title: 'Typography',
-      icon: 'mdi-format-font',
-      to: '/components/typography/',
-    },
-    {
-      title: 'Icons',
-      icon: 'mdi-chart-bubble',
-      to: '/components/icons/',
-    },
-    {
-      title: 'Google Maps',
-      icon: 'mdi-map-marker',
-      to: '/maps/google/',
-    },
-    {
-      title: 'Notifications',
-      icon: 'mdi-bell',
-      to: '/components/notifications/',
     },
   ],
 }
