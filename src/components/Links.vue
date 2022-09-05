@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row align="center">
-      <v-col
+      <!-- <v-col
         v-for="(link, i) in links"
         :key="i"
         class="text-center"
@@ -15,7 +15,7 @@
           target="_blank"
           v-text="link.text"
         />
-      </v-col>
+      </v-col> -->
 
       <v-spacer class="hidden-sm-and-down" />
 
@@ -24,11 +24,8 @@
         md="auto"
       >
         <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center">
-          &copy; {{ (new Date()).getFullYear() }}, Made by <v-icon>mdi-vuetify</v-icon>
-          <a
-            href="https://vuetifyjs.com/en/about/meet-the-team/#company"
-            class="text-decoration-none"
-          >Vuetify</a>
+          &copy; {{ (new Date()).getFullYear() }} Mayoube💗
+         
         </div>
       </v-col>
     </v-row>

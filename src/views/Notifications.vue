@@ -264,13 +264,6 @@
               class="hidden-sm-and-down"
               md="4"
             >
-              <v-sheet>
-                <v-img
-                  src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/card-1.jpg"
-                  height="100"
-                  width="200"
-                />
-              </v-sheet>
             </v-col>
 
             <v-col
@@ -292,13 +285,6 @@
               class="hidden-sm-and-down"
               md="4"
             >
-              <v-sheet>
-                <v-img
-                  src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/card-2.jpg"
-                  height="100"
-                  width="200"
-                />
-              </v-sheet>
             </v-col>
 
             <v-col cols="12">

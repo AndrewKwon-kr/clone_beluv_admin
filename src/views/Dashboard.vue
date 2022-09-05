@@ -1,51 +1,10 @@
 <template>
   <v-container
-    id="dashboard-view"
+    id="yarn-view"
     fluid
     tag="section"
   >
     <v-row>
-      <v-col cols="12">
-        <v-row>
-          <v-col
-            v-for="(chart, i) in charts"
-            :key="`chart-${i}`"
-            cols="12"
-            md="6"
-            lg="4"
-          >
-            <material-chart-card
-              :color="chart.color"
-              :data="chart.data"
-              :options="chart.options"
-              :responsive-options="chart.responsiveOptions"
-              :title="chart.title"
-              :type="chart.type"
-            >
-              <template #subtitle>
-                <div class="font-weight-light text--secondary">
-                  <div v-html="chart.subtitle" />
-                </div>
-              </template>
-
-              <template #actions>
-                <v-icon
-                  class="mr-1"
-                  small
-                >
-                  mdi-clock-outline
-                </v-icon>
-
-                <span
-                  class="text-caption grey--text font-weight-light"
-                  v-text="chart.time"
-                />
-              </template>
-            </material-chart-card>
-          </v-col>
-        </v-row>
-      </v-col>
-
       <v-col
         v-for="({ actionIcon, actionText, ...attrs }, i) in stats"
         :key="i"
@@ -66,273 +25,177 @@
           </template>
         </material-stat-card>
       </v-col>
+      
     </v-row>
+    <LineChartGenerator
+        :chart-options="chartOptions"
+        :chart-data="chartData"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+      />
   </v-container>
 </template>
 
 <script>
   // Utilities
   import { get } from 'vuex-pathify'
-  import Vue from 'vue'
   import { HOST, headers } from '../http-api/index'
-//   const HOST = "http://beluv-dev.mayoube.co.kr/web";
-//   const headers = () => {
-//     return {
-//       "Content-Type": "application/json",
-//       "LOGIN-TYPE": "ADMIN",
-//       "X-ACCESS-TOKEN": localStorage.getItem("beluvAdminToken")
-//     };
-// };
-  const lineSmooth = Vue.chartist.Interpolation.cardinal({
-    tension: 0,
-  })
+  import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
 
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    LineElement,
+    LinearScale,
+    CategoryScale,
+    PointElement
+  } from 'chart.js'
+
+  ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  CategoryScale,
+  PointElement
+)
+  
   export default {
     name: 'DashboardView',
- 
+    components: {
+      LineChartGenerator
+    },
     methods: {
       async getData() {
         const res = await this.$axios.get(`${HOST}/user/count`, {
           headers: headers()
         });
-        console.log(res)
-        },
+
+        this.items = res.data.result;
+        this.stats = this.stats.map((stat) => {
+          return { ...stat, value: Intl.NumberFormat().format(this.items[stat.value]) }
+        })
+      },
 
     },
+    props: {
+    chartId: {
+      type: String,
+      default: 'line-chart'
+    },
+    datasetIdKey: {
+      type: String,
+      default: 'label'
+    },
+    width: {
+      type: Number,
+      default: 400
+    },
+    height: {
+      type: Number,
+      default: 400
+    },
+    cssClasses: {
+      default: '',
+      type: String
+    },
+    styles: {
+      type: Object,
+      default: () => {}
+    },
+    plugins: {
+      type: Array,
+      default: () => []
+    }
+  },
     
     
     data: () => ({
-      charts: [{
-        type: 'Bar',
-        color: 'primary',
-        title: 'Website Views',
-        subtitle: 'Last Campaign Performance',
-        time: 'updated 10 minutes ago',
-        data: {
-          labels: ['Ja', 'Fe', 'Ma', 'Ap', 'Mai', 'Ju', 'Jul', 'Au', 'Se', 'Oc', 'No', 'De'],
-          series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-          ],
-        },
-        options: {
-          axisX: {
-            showGrid: false,
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: {
-            top: 0,
-            right: 5,
-            bottom: 0,
-            left: 0,
-          },
-        },
-        responsiveOptions: [
-          ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-              labelInterpolationFnc: function (value) {
-                return value[0]
-              },
-            },
-          }],
-        ],
-      }, {
-        type: 'Line',
-        color: 'success',
-        title: 'Daily Sales',
-        subtitle: '<i class="mdi mdi-arrow-up green--text"></i><span class="green--text">55%</span>&nbsp;increase in today\'s sales',
-        time: 'updated 4 minutes ago',
-        data: {
-          labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
-          series: [
-            [230, 750, 450, 300, 280, 240, 200, 190],
-          ],
-        },
-        options: {
-          lineSmooth,
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-          },
-        },
-      }, {
-        type: 'Line',
-        color: 'info',
-        title: 'Completed Tasks',
-        subtitle: 'Last Campaign Performance',
-        time: 'campaign sent 26 minutes ago',
-        data: {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-            [12, 17, 7, 17, 23, 18, 38],
-          ],
-        },
-        options: {
-          lineSmooth,
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-          },
-        },
-      }],
-      headers: [
-        {
-          sortable: false,
-          text: 'ID',
-          value: 'id',
-        },
-        {
-          sortable: false,
-          text: 'Name',
-          value: 'name',
-        },
-        {
-          sortable: false,
-          text: 'Salary',
-          value: 'salary',
-          align: 'right',
-        },
-        {
-          sortable: false,
-          text: 'Country',
-          value: 'country',
-          align: 'right',
-        },
-        {
-          sortable: false,
-          text: 'City',
-          value: 'city',
-          align: 'right',
-        },
-      ],
-      items: [
-        {
-          id: 1,
-          name: 'Dakota Rice',
-          country: 'Niger',
-          city: 'Oud-Tunrhout',
-          salary: '$35,738',
-        },
-        {
-          id: 2,
-          name: 'Minerva Hooper',
-          country: 'Curaçao',
-          city: 'Sinaai-Waas',
-          salary: '$23,738',
-        },
-        {
-          id: 3,
-          name: 'Sage Rodriguez',
-          country: 'Netherlands',
-          city: 'Overland Park',
-          salary: '$56,142',
-        },
-        {
-          id: 4,
-          name: 'Philip Chanley',
-          country: 'Korea, South',
-          city: 'Gloucester',
-          salary: '$38,735',
-        },
-        {
-          id: 5,
-          name: 'Doris Greene',
-          country: 'Malawi',
-          city: 'Feldkirchen in Kārnten',
-          salary: '$63,542',
-        },
-      ],
+      items: {},
       stats: [
         {
-          actionIcon: 'mdi-alert',
-          actionText: 'Get More Space...',
+          actionIcon: 'mdi-alpha-a-box-outline',
+          actionText: '10만 가즈아...!',
           color: '#FD9A13',
-          icon: 'mdi-sofa-single',
-          title: 'Bookings',
-          value: '184',
+          icon: 'mdi-account-multiple',
+          title: '총 회원수',
+          value: 'all'
         },
         {
-          actionIcon: 'mdi-tag',
-          actionText: 'Tracked from Google Analytics',
+          actionIcon: 'mdi-alpha-t-box-outline',
+          actionText: '오늘 가입해주신 분들',
           color: 'primary',
-          icon: 'mdi-chart-bar',
-          title: 'Website Visits',
-          value: '75.521',
+          icon: 'mdi-account-arrow-up',
+          title: '오늘 가입회원',
+          value: 'today'
         },
         {
-          actionIcon: 'mdi-calendar-range',
-          actionText: 'Last 24 Hours',
+          actionIcon: 'mdi-alpha-w-box-outline',
+          actionText: '이번주 가입자분들',
           color: 'success',
-          icon: 'mdi-store',
-          title: 'Revenue',
-          value: '$34,245',
+          icon: 'mdi-account-multiple-plus',
+          title: '이번주 가입회원',
+          value: 'week'
+        },
+        {
+          actionIcon: 'mdi-alpha-m-box-outline',
+          actionText: '이번달 가입자분들',
+          color: 'info',
+          icon: 'mdi-account-group',
+          title: '이번달 가입회원',
+          value: 'month'
         },
         {
           actionIcon: 'mdi-history',
-          actionText: 'Just Updated',
+          actionText: '돌아와요',
           color: 'info',
-          icon: 'mdi-twitter',
-          title: 'Followers',
-          value: '+245',
+          icon: 'mdi-account-multiple-minus',
+          title: '탈퇴자',
+          value: 'inActivatedUser'
         },
       ],
-      tabs: 0,
-      tasks: {
-        0: [
-          {
-            text: 'Sign contract for "What are conference organizers afraid of?"',
-            value: true,
-          },
-          {
-            text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
-            value: false,
-          },
-          {
-            text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-            value: false,
-          },
-          {
-            text: 'Create 4 Invisible User Experiences you Never Knew About',
-            value: true,
-          },
+      chartData: {
+        labels: [
+          '1월',
+          '2월',
+          '3월',
+          '4월',
+          '5월',
+          '6월',
+          '7월',
+          '8월',
         ],
-        1: [
+        datasets: [
           {
-            text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-            value: true,
+            label: '가입(샘플)',
+            backgroundColor: '#f87979',
+            borderColor: '#f87979',
+            data: [40, 39, 10, 40, 39, 80, 40, 90]
           },
           {
-            text: 'Sign contract for "What are conference organizers afraid of?"',
-            value: false,
-          },
-        ],
-        2: [
-          {
-            text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
-            value: false,
-          },
-          {
-            text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-            value: true,
-          },
-          {
-            text: 'Sign contract for "What are conference organizers afraid of?"',
-            value: true,
-          },
-        ],
+            label: '탈퇴(샘플)',
+            backgroundColor: '#5B82E3',
+            borderColor: '#5B82E3',
+            data: [20, 9, 10, 14, 6, 16, 30, 8]
+          }
+        ]
       },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    
     }),
-    created() {
-      this.getData();
+    async mounted() {
+      await this.getData();
     },
     computed: {
       sales: get('sales/sales'),
