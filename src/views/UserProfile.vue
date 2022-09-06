@@ -12,6 +12,7 @@
       <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
         <img :src=thumbnails v-bind:style="{width: '30px', height: '20px'}"/>
       </div>
+      <span slot="createdAt" slot-scope="createdAt">{{createdAt.substr(0,10)}}</span>
     </a-table>
   </v-container>
 </template>
@@ -89,6 +90,8 @@
     title: '등록날짜',
     dataIndex: 'createdAt',
     key: 'createdAt',
+    scopedSlots: {customRender: 'createdAt'}
+
   },
 ];
 
