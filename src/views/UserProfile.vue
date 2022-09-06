@@ -103,3 +103,8 @@
     })
   }
 </script>
+<style>
+  .ant-table-tbody {
+    background-color: white;
+  }
+</style>
