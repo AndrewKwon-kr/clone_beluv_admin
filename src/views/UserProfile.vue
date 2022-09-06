@@ -4,174 +4,81 @@
     fluid
     tag="section"
   >
-    <v-row justify="center">
-      <v-col
-        cols="12"
-        md="8"
-      >
-        <material-card
-          color="primary"
-          icon="mdi-account-outline"
-        >
-          <template #title>
-            Edit Profile — <small class="text-body-1">Complete your profiledfdfddff</small>
-          </template>
-
-          <v-form>
-            <v-container class="py-0">
-              <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    disabled
-                    label="Company (disabled)"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="User Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="Email Address"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="First Name"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="Last Name"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    color="purple"
-                    label="Adress"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="City"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="Country"
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  md="4"
-                >
-                  <v-text-field
-                    color="purple"
-                    label="Postal Code"
-                    type="number"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-textarea
-                    color="purple"
-                    label="About Me"
-                    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                  />
-                </v-col>
-
-                <v-col
-                  cols="12"
-                  class="text-right"
-                >
-                  <v-btn
-                    color="primary"
-                    min-width="150"
-                  >
-                    Update Profile
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </material-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <app-card class="mt-4 text-center">
-          <v-img
-            class="rounded-circle elevation-6 mt-n12 d-inline-block"
-            src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-            width="128"
-          />
-
-          <v-card-text class="text-center">
-            <h6 class="text-h6 mb-2 text--secondary">
-              CEO / FOUNDER
-            </h6>
-
-            <h4 class="text-h4 mb-3 text--primary">
-              John Leider
-            </h4>
-
-            <p class="text--secondary">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione dolorem deserunt veniam tempora magnam quisquam quam error iusto cupiditate ducimus, et eligendi saepe voluptatibus assumenda similique temporibus placeat animi dicta?
-            </p>
-
-            <v-btn
-              class="mr-0"
-              color="primary"
-              min-width="100"
-              rounded
-            >
-              Follow
-            </v-btn>
-          </v-card-text>
-        </app-card>
-      </v-col>
-    </v-row>
+    <a-table :columns="columns" :data-source="data" :rowKey="(record, index) => {return index}">
+      <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
+        <img :src=thumbnails v-bind:style="{width: '30px', height: '20px'}"/>
+      </div>
+    </a-table>
   </v-container>
 </template>
 
 <script>
-  export default { name: 'UserProfileView' }
+  import { dummys } from '../dummys/dummys.js'
+
+  const columns = [
+  {
+    title: "No",
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: '대카테고리',
+    dataIndex: 'categoryName',
+    key: 'categoryName',
+  },
+  {
+    title: '소카테고리',
+    dataIndex: 'subCategoryName',
+    key: 'subCategoryName',
+  },
+  {
+    title: '썸네일',
+    key: 'thumbnails',
+    dataIndex: 'thumbnails',
+    scopedSlots: {customRender: 'thumbnails'}
+  },
+  {
+    title: '채널명',
+    dataIndex: 'channel_title',
+    key: 'channel_title',
+  },
+  {
+    title: '영상제목',
+    dataIndex: 'title',
+    key: 'title',
+  },
+  {
+    title: '요약글',
+    dataIndex: 'summary',
+    key: 'summary',
+  },
+  {
+    title: '조회수',
+    dataIndex: 'playCount',
+    key: 'playCount',
+  },
+  {
+    title: '활성',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
+    title: '재생시간',
+    dataIndex: 'play_time',
+    key: 'play_time',
+  },
+  {
+    title: '등록날짜',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+  },
+];
+
+  export default { 
+    name: 'UserProfileView',
+    data: () => ({
+      columns: columns,
+      data: dummys
+    })
+  }
 </script>

@@ -5,8 +5,10 @@ import vuetify from './plugins/vuetify'
 import './plugins'
 import store from './store'
 import { sync } from 'vuex-router-sync'
-
 import axios from 'axios'
+import Antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
+Vue.use(Antd);
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios

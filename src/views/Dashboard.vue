@@ -86,6 +86,10 @@
       },
 
     },
+    async mounted() {
+      await this.getData();
+    },
+
     props: {
     chartId: {
       type: String,
@@ -194,9 +198,6 @@
       }
     
     }),
-    async mounted() {
-      await this.getData();
-    },
     computed: {
       sales: get('sales/sales'),
       totalSales () {
