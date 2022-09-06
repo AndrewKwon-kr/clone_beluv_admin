@@ -4,7 +4,11 @@
     fluid
     tag="section"
   >
-    <a-table :columns="columns" :data-source="data" :rowKey="(record, index) => {return index}">
+    <a-table 
+    :columns="columns" 
+    :data-source="data" 
+    :rowKey="(record, index) => {return index}"
+    >
       <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
         <img :src=thumbnails v-bind:style="{width: '30px', height: '20px'}"/>
       </div>
@@ -25,11 +29,25 @@
     title: '대카테고리',
     dataIndex: 'categoryName',
     key: 'categoryName',
+    filters: [
+      { text: '육아꿀팁', value: '육아꿀팁' },
+      { text: '육아정보', value: '육아정보' },
+      { text: '브이로그/일상', value: '브이로그/일상' },
+    ],
+    onFilter: (value, record) => record.categoryName.indexOf(value) === 0,
   },
   {
     title: '소카테고리',
     dataIndex: 'subCategoryName',
     key: 'subCategoryName',
+    filters: [
+      { text: '건강', value: '건강' },
+      { text: '육아정보', value: '육아정보' },
+      { text: '놀이', value: '놀이' },
+      { text: '간식/식품', value: '간식/식품' },
+      { text: '안전', value: '안전' },
+    ],
+    onFilter: (value, record) => record.subCategoryName.indexOf(value) === 0,
   },
   {
     title: '썸네일',
