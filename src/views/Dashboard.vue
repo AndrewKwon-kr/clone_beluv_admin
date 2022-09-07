@@ -138,7 +138,7 @@ export default {
       {
         actionIcon: 'mdi-history',
         actionText: '돌아와요',
-        color: 'info',
+        color: '#DC2626',
         icon: 'mdi-account-multiple-minus',
         title: '탈퇴자',
         value: 'inActivatedUser'

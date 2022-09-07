@@ -95,12 +95,11 @@ export default {
                 target="_blank"
                 onClick={() => window.open(record.videoLink)}
               >
-                <img src={require('@/assets/open-in-new.png')} style={{ width: '16px' }} />
+                <img src={require('@/assets/open-in-new.png')} style={{ width: '16px', marginLeft: '5px' }} />
               </button>
             </div>
           )
         }
-        // scopedSlots: {customRender: 'title'},
       },
       {
         title: '요약글',
@@ -167,5 +166,8 @@ export default {
 .ant-table-tbody {
   background-color: white;
   text-align: center;
+}
+.ant-table-tbody > tr > td {
+  font-weight: 600 !important;
 }
 </style>

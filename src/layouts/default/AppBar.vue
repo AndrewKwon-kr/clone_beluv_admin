@@ -16,12 +16,9 @@
     />
 
     <default-drawer-toggle class="hidden-sm-and-down" />
-
-    <v-toolbar-title
-      class="font-weight-light text-h5"
-      v-text="name"
-    />
-
+    <h3 v-if="name==='Dashboard'">대쉬보드</h3>
+    <h3 v-if="name==='BeluvTvPage'">베럽TV</h3>
+    <h3 v-if="name==='ReviewPage'">리뷰관리</h3>
     <v-spacer />
   </v-app-bar>
 </template>
