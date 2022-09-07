@@ -1,4 +1,4 @@
-const dummys = [
+export const dummys = [
   {
     review_Id: 35253,
     category_Id: 5,
@@ -43,7 +43,7 @@ const dummys = [
       "아쉬운 점은 그래두 알러지 일으킬 수 있는 성분은 쪼금은 들어가있더라구요 ! 신생아때는 쪼금 걱정되서, 생후 3개월뒤부터 사용하려합니닷 ㅎㅎ",
     rating: 5,
     createdAt: "2022-09-06T15:16:19",
-    status: "ACTIVATE",
+    status: "INACTIVATE",
     addYN: "Y",
     deductYN: "N",
   },
