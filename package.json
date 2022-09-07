@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
+    "@mdi/font": "^7.0.96",
+    "@mdi/js": "^7.0.96",
     "ant-design-vue": "^1.7.8",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
