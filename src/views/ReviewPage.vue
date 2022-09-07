@@ -348,7 +348,7 @@
 
 <script>
   export default {
-    name: 'NotificationsView',
+    name: 'ReviewView',
 
     data: () => ({
       color: 'info',

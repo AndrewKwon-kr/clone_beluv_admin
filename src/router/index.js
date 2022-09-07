@@ -23,10 +23,10 @@ const router = new Router({
       route('Dashboard'),
 
       // Pages
-      route('UserProfile', null, 'components/profile'),
+      route('BeluvTvPage', null, '/play'),
+      route('ReviewPage', null, '/review'),
 
       // Components
-      route('Notifications', null, 'components/notifications'),
       route('Icons', null, 'components/icons'),
       route('Typography', null, 'components/typography'),
 

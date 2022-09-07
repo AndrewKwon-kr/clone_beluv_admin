@@ -4,10 +4,11 @@
     fluid
     tag="section"
   >
+    <h1>총 {{data.length}} 건</h1>
     <a-table 
     :columns="columns" 
     :data-source="data" 
-    :rowKey="(record, index) => {return index}"
+    :rowKey="(record, index) => { return index }"
     >
       <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
         <a-popover trigger="click">
@@ -20,13 +21,13 @@
       <div slot="summary" slot-scope="summary">
         <a-tooltip placement="bottom">
           <template slot="title">
-            <span>{{summary}}</span>
+            <span>{{ summary }}</span>
           </template>
           <v-icon color="green darken-2">mdi-card-text</v-icon>
         </a-tooltip>
       </div>
       <div slot="playCount" slot-scope="playCount">
-        <sapn>{{ playCount.toLocaleString() }}</sapn>
+        <span>{{ playCount.toLocaleString() }}</span>
       </div>
       <div slot="status" slot-scope="status">
         <v-icon v-if="status === 'ACTIVATE'" color="green darken-2">mdi-eye</v-icon>
@@ -40,7 +41,11 @@
 <script>
   import { dummys } from '../dummys/dummys.js'
 
-  const columns = [
+  export default { 
+    name: 'ProductListView',
+    data() {
+      
+        const columns = [
   {
     title: "No",
     dataIndex: 'id',
@@ -88,12 +93,28 @@
     title: '영상제목',
     dataIndex: 'title',
     key: 'title',
+    customRender: (text, record) => {
+      return (
+        <div slot="title" slot-scope="title">
+          <span>{{ text }}</span>
+          <button
+            icon
+            x-small
+            target="_blank"
+            onClick={() => window.open(record.videoLink)}
+          >
+          <img src={require('@/assets/open-in-new.png')} style={{width: '16px'}}/>
+          </button>
+      </div>
+      )
+    } 
+    // scopedSlots: {customRender: 'title'},
   },
   {
     title: '요약글',
     dataIndex: 'summary',
     key: 'summary',
-    width: '5%',
+    width: '8%',
     scopedSlots: {customRender: 'summary'}
   },
   {
@@ -109,7 +130,7 @@
     title: '활성',
     dataIndex: 'status',
     key: 'status',
-    width: '5%',
+    width: '7%',
     scopedSlots: {customRender: 'status'},
     filters: [
       { text: '활성', value: 'ACTIVATE' },
@@ -128,20 +149,24 @@
     title: '등록날짜',
     dataIndex: 'createdAt',
     key: 'createdAt',
+    width: '7%',
     scopedSlots: {customRender: 'createdAt'}
 
   },
-];
+]
+        return {
 
-  export default { 
-    name: 'UserProfileView',
-    data: () => ({
-      columns: columns,
-      data: dummys
-    })
+          columns: columns,
+          data: dummys
+        }
+      }
+    
   }
 </script>
 <style>
+  .ant-table-title {
+    display: none;
+  }
   .ant-table-thead > tr > th {
     text-align: center;
   }

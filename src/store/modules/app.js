@@ -14,14 +14,14 @@ const state = {
     },
     
     {
-      title: '제품목록',
-      icon: 'mdi-apps',
-      to: '/components/profile/',
+      title: '베럽TV',
+      icon: 'mdi-play-box-multiple',
+      to: '/play/',
     },
     {
-      title: '베럽TV',
-      icon: 'mdi-monitor',
-      to: '/tables/regular/',
+      title: '리뷰관리',
+      icon: 'mdi-comment-edit',
+      to: '/review/',
     },
   ],
 }
