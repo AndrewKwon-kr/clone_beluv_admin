@@ -25,6 +25,9 @@
           <v-icon color="green darken-2">mdi-card-text</v-icon>
         </a-tooltip>
       </div>
+      <div slot="playCount" slot-scope="playCount">
+        <sapn>{{ playCount.toLocaleString() }}</sapn>
+      </div>
       <div slot="status" slot-scope="status">
         <v-icon v-if="status === 'ACTIVATE'" color="green darken-2">mdi-eye</v-icon>
         <v-icon v-else >mdi-eye-off</v-icon>
@@ -98,6 +101,7 @@
     dataIndex: 'playCount',
     key: 'playCount',
     width: '8%',
+    scopedSlots: {customRender: 'playCount'},
     sorter: (a, b) => a.playCount - b.playCount,
     sortDirections: ['descend', 'ascend'],
   },
