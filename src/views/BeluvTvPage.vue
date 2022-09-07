@@ -5,7 +5,7 @@
       <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
         <a-popover trigger="click">
           <template slot="content">
-            <img :src=thumbnails v-bind:style="{width: '300px', height: '200px'}" />
+            <img :src=thumbnails v-bind:style="{width: '600px', height: '400px'}" />
           </template>
           <img :src=thumbnails v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
         </a-popover>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { dummys } from '../dummys/dummys.js'
+import { dummys } from '../dummys/VideoList'
 
 export default {
   name: 'ProductListView',
