@@ -202,6 +202,9 @@ export default {
 .date-picker {
   margin: 10px 0;
 }
+.ant-calendar-picker:last-child {
+  margin-left: 10px;
+}
 
 .text-bold {
   font-weight: 800 !important;
