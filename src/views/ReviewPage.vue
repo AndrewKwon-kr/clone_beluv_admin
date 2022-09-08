@@ -8,13 +8,16 @@
         placeholder="종료일" :open="endOpen" @openChange="handleEndOpenChange" />
     </div>
     <a-table :columns="columns" :data-source="filteredData" :rowKey="(record, index) => { return index }">
-      <div slot="ProductReview_Url" slot-scope="ProductReview_Url">
+      <div slot="ProductReview_Url" slot-scope="ProductReview_Url" v-if="ProductReview_Url">
         <a-popover trigger="click">
           <template slot="content">
             <img :src=ProductReview_Url v-bind:style="{width: '600px', height: '400px'}" />
           </template>
           <img :src=ProductReview_Url v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
         </a-popover>
+      </div>
+      <div v-else>
+        <img :src="require('@/assets/ic-beluv.png')" />
       </div>
       <div slot="rating" slot-scope="rating">
         <a-rate :value=rating disabled style="fontSize: 10px" />
@@ -204,6 +207,10 @@ export default {
 }
 .ant-calendar-picker:last-child {
   margin-left: 10px;
+}
+
+.ant-tooltip-inner {
+  width: 400px;
 }
 
 .text-bold {
