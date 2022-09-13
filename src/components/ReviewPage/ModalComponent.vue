@@ -161,6 +161,12 @@ export default {
                 key: 'skinType',
                 scopedSlots: { customRender: 'skinType' },
             },
+            {
+                title: "등록일",
+                dataIndex: 'createdAt',
+                key: 'createdAt',
+                scopedSlots: { customRender: 'createdAt' },
+            },
         ]
         return {
             columns: columns,
