@@ -90,8 +90,8 @@ export default {
         dataIndex: 'no',
         key: 'no',
         width: '7%',
-        sorter: (a, b) => b.no - a.no,
-        sortDirections: ['descend'],
+        sorter: (a, b) => a.no - b.no,
+        sortDirections: ['ascend'],
       },
       {
         title: "글쓴이",
