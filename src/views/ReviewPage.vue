@@ -49,7 +49,11 @@
         <a-switch v-else />
       </div>
     </a-table>
-    <ModalComponent :data="modalValue" :visible="visible" />
+    <ModalComponent 
+      :data="modalValue"
+      :visible="visible"
+      :loading="loading"
+      />
   </v-container>
 </template>
 
@@ -91,22 +95,20 @@ export default {
       return {
         on: {
           dblclick: () => {
-            console.log(record, index)
             this.showModal(record)
           },
         }
       }
     },
     showModal(value) {
+      this.loading = true;
       this.visible = true;
       this.modalValue = value;
     },
-    handleOk() {
-      this.visible = false;
-    },
     handleCancel() {
-      console.log('Clicked cancel button');
+      this.loading = false;
       this.visible = false;
+      this.modalValue = [];
     },
   },
   watch: {
@@ -214,17 +216,18 @@ export default {
         key: 'status',
         scopedSlots: { customRender: 'status' },
       },
-
     ]
+
     return {
       columns: columns,
       data: dummys,
       filteredData: dummys,
       startValue: null,
-      endValue: moment(new Date().toJSON().slice(0, 10).replace(/-/g, '.').substring(0, 10)),
+      endValue: moment(new Date()),
       endOpen: false,
       modalValue: {},
       visible: false,
+      loading: true
     }
   }
 
