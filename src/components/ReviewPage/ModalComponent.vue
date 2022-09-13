@@ -1,244 +1,231 @@
 <template>
-    <a-modal :title="`${data.product_Title} (${data.Product_Id})`" :visible="visible"
-        @cancel="this.$parent.handleCancel" :closable="false" width="80%" height="40%"
-        :ok-button-props="{ style: { display: 'none'} }">
-        <div class="modal-container">
-            <div class="left-area">
-                <a-table :columns="columns" :data-source="productData" :rowKey="(record, index) => { return index }"
-                    :loading="loading">
-                    <div slot="url" slot-scope="url">
-                        <div v-for="(imageUrl, index) in url" v-bind:key="index">
-                            <div v-if="imageUrl">
-                                <a-popover trigger="click">
-                                    <template slot="content">
-                                        <img :src=imageUrl v-bind:style="{width: '600px', height: '400px'}" />
-                                    </template>
-                                    <img :src=imageUrl
-                                        v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
-                                </a-popover>
-                            </div>
-                            <div v-else>
-                                <img :src="require('@/assets/ic-beluv.png')" />
-                            </div>
-                        </div>
-                    </div>
-                    <div slot="content" slot-scope="content">
-                        <a-tooltip placement="bottom">
-                            <template slot="title">
-                                <span>{{ content }}</span>
-                            </template>
-                            <span>{{ content.substr(0, 30) }}...</span>
-                            <span class="text-bold">({{ content.length }})</span>
-                            <v-icon color="green darken-2">mdi-card-text</v-icon>
-                        </a-tooltip>
-                    </div>
-                    <div slot="content_bad" slot-scope="content_bad">
-                        <a-tooltip placement="bottom">
-                            <template slot="title">
-                                <span>{{ content_bad }}</span>
-                            </template>
-                            <span>{{ content_bad.substr(0, 30) }}...</span>
-                            <span class="text-bold" v-if="content_bad">({{ content_bad.length
-                            }})</span>
-                            <v-icon color="green darken-2">mdi-card-text</v-icon>
-                        </a-tooltip>
-                    </div>
-                    <div slot="rating" slot-scope="rating">
-                        <a-rate :value=rating disabled style="fontSize: 10px" />
-                    </div>
-                    <div slot="gender" slot-scope="gender">
-                        <span v-if="gender==='M'">남</span>
-                        <span v-else-if="gender==='F'">여</span>
-                        <span v-else>모름</span>
-                    </div>
-                </a-table>
+  <a-modal :title="`${data.product_Title} (${data.Product_Id})`" :visible="visible" @cancel="this.$parent.handleCancel"
+    :closable="false" width="80%" height="40%" :ok-button-props="{ style: { display: 'none'} }">
+    <div class="modal-container">
+      <div class="left-area">
+        <a-table :columns="columns" :data-source="productData" :rowKey="(record, index) => { return index }"
+          :loading="loading">
+          <div slot="url" slot-scope="url">
+            <div v-for="(imageUrl, index) in url" v-bind:key="index">
+              <div v-if="imageUrl">
+                <a-popover trigger="click">
+                  <template slot="content">
+                    <img :src=imageUrl v-bind:style="{width: '600px', height: '400px'}" />
+                  </template>
+                  <img :src=imageUrl v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
+                </a-popover>
+              </div>
+              <div v-else>
+                <img :src="require('@/assets/ic-beluv.png')" />
+              </div>
             </div>
-            <div class="right-area">
-                <div class="card-wrapper">
-                    <a-card :loading="loading">
-                        <a-card-grid style="display:flex; width:100%; justify-content: space-between;">
-                            <span>★ {{ (this.productData.map((data) => data.rating)?.reduce((a, b) => a + b, 0) /
-                            this.productData.length).toFixed(2) }}</span>
-                            <span>별점 분포 통계</span>
-                        </a-card-grid>
-                    </a-card>
-                </div>
-
-                <a-card :loading="loading">
-                    <a-card-grid style="width:100%;">
-                        <span>5점</span>
-                        <span>{{this.productData.filter((data) => data.rating === 5).length}}</span>
-                    </a-card-grid>
-                    <a-card-grid style="width:100%;">
-                        <span>4점</span>
-                        <span>{{this.productData.filter((data) => data.rating === 4).length}}</span>
-                    </a-card-grid>
-                    <a-card-grid style="width:100%;">
-                        <span>3점</span>
-                        <span>{{this.productData.filter((data) => data.rating === 3).length}}</span>
-                    </a-card-grid>
-                    <a-card-grid style="width:100%;">
-                        <span>2점</span>
-                        <span>{{this.productData.filter((data) => data.rating === 2).length}}</span>
-                    </a-card-grid>
-                    <a-card-grid style="width:100%;">
-                        <span>1점</span>
-                        <span>{{this.productData.filter((data) => data.rating === 1).length}}</span>
-                    </a-card-grid>
-                </a-card>
-            </div>
-
+          </div>
+          <div slot="content" slot-scope="content">
+            <a-tooltip placement="bottom">
+              <template slot="title">
+                <span>{{ content }}</span>
+              </template>
+              <span>{{ content.substr(0, 30) }}...</span>
+              <span class="text-bold">({{ content.length }})</span>
+              <v-icon color="#388E3C">mdi-card-text</v-icon>
+            </a-tooltip>
+          </div>
+          <div slot="content_bad" slot-scope="content_bad">
+            <a-tooltip placement="bottom">
+              <template slot="title">
+                <span>{{ content_bad }}</span>
+              </template>
+              <span>{{ content_bad.substr(0, 30) }}...</span>
+              <span class="text-bold" v-if="content_bad">({{ content_bad.length
+              }})</span>
+              <v-icon color="#388E3C">mdi-card-text</v-icon>
+            </a-tooltip>
+          </div>
+          <div slot="rating" slot-scope="rating">
+            <a-rate :value=rating disabled style="fontSize: 10px" />
+          </div>
+          <div slot="gender" slot-scope="gender">
+            <span v-if="gender==='M'">남</span>
+            <span v-else-if="gender==='F'">여</span>
+            <span v-else>모름</span>
+          </div>
+        </a-table>
+      </div>
+      <div class="right-area">
+        <div class="card-wrapper">
+          <a-card :loading="loading">
+            <a-card-grid style="display:flex; width:100%; justify-content: space-between;">
+              <span>
+                <v-icon color="#ff1744">mdi-star</v-icon> 
+                {{ (this.productData.map((data) => data.rating)?.reduce((a, b) => a + b, 0) /
+                this.productData.length).toFixed(2) }}
+              </span>
+              <span>별점 분포 통계</span>
+            </a-card-grid>
+          </a-card>
         </div>
-    </a-modal>
+
+        <a-card :loading="loading">
+          <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
+            <span>{{ rating }}점</span>
+            <span>{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
+          </a-card-grid>
+        </a-card>
+      </div>
+
+    </div>
+  </a-modal>
 </template>
 <script>
 import { headers } from '@/http-api/index'
 
 export default {
-    props: ['data', 'visible', 'loading'],
-    name: 'modalComponent',
-    data() {
-        const columns = [
-            {
-                title: "No",
-                dataIndex: 'no',
-                key: 'no',
-                width: '7%',
-                sorter: (a, b) => b.no - a.no,
-                sortDirections: ['descend'],
-            },
-            {
-                title: "글쓴이",
-                dataIndex: 'nickName',
-                key: 'nickName',
-                width: '7%',
-            },
-            {
-                title: "이미지",
-                dataIndex: 'url',
-                key: 'url',
-                scopedSlots: { customRender: 'url' },
-                width: '7%',
-            },
-            {
-                title: "좋은점(글수)",
-                dataIndex: 'content',
-                key: 'content',
-                scopedSlots: { customRender: 'content' },
-                width: '15%',
-            },
-            {
-                title: "안좋은점(글수)",
-                dataIndex: 'content_bad',
-                key: 'content_bad',
-                scopedSlots: { customRender: 'content_bad' },
-                width: '15%',
-            },
-            {
-                title: "별점",
-                dataIndex: 'rating',
-                key: 'rating',
-                scopedSlots: { customRender: 'rating' },
-                width: '15%',
-                sorter: (a, b) => a.rating - b.rating,
-                sortDirections: ['descend', 'ascend'],
-            },
-            {
-                title: "아기성별",
-                dataIndex: 'gender',
-                key: 'gender',
-                scopedSlots: { customRender: 'gender' },
-            },
-            {
-                title: "아기생일",
-                dataIndex: 'birth',
-                key: 'birth',
-                scopedSlots: { customRender: 'birth' },
-            },
-            {
-                title: "아기피부",
-                dataIndex: 'skinType',
-                key: 'skinType',
-                scopedSlots: { customRender: 'skinType' },
-            },
-            {
-                title: "등록일",
-                dataIndex: 'createdAt',
-                key: 'createdAt',
-                scopedSlots: { customRender: 'createdAt' },
-            },
-        ]
-        return {
-            columns: columns,
-            productData: [],
-        }
-    },
-    methods: {
-        async setProductReviews() {
-            const response = await this.$axios.post(
-                "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/ProductReviewList",
-                {
-                    productId: this.data.Product_Id,
-                    categoryId: 0,
-                    photoCheck: 0,
-                    filter: 0,
-                    userId: 0,
-                    startNo: 0,
-                    endNo: 1000
-                },
-                { headers: headers() }
-            );
-            if (response.status === 200) {
-                response.data.data.forEach((element, index) => {
-                    element.no = response.data.data.length - index;
-                });
-                console.log(response.data.data)
-                this.productData = response.data.data;
-                this.$parent.loading = false;
-            }
-        },
-    },
-    watch: {
-        visible: function () {
-            if (this.visible) {
-                this.setProductReviews(this.data.Product_Id)
-            } else {
-                this.productData = []
-            }
-        }
+  props: ['data', 'visible', 'loading'],
+  name: 'modalComponent',
+  data() {
+    const ratingArray = ['5', '4', '3', '2', '1'];
+    const columns = [
+      {
+        title: "No",
+        dataIndex: 'no',
+        key: 'no',
+        width: '7%',
+        sorter: (a, b) => b.no - a.no,
+        sortDirections: ['descend'],
+      },
+      {
+        title: "글쓴이",
+        dataIndex: 'nickName',
+        key: 'nickName',
+        width: '7%',
+      },
+      {
+        title: "이미지",
+        dataIndex: 'url',
+        key: 'url',
+        scopedSlots: { customRender: 'url' },
+        width: '7%',
+      },
+      {
+        title: "좋은점(글수)",
+        dataIndex: 'content',
+        key: 'content',
+        scopedSlots: { customRender: 'content' },
+        width: '15%',
+      },
+      {
+        title: "안좋은점(글수)",
+        dataIndex: 'content_bad',
+        key: 'content_bad',
+        scopedSlots: { customRender: 'content_bad' },
+        width: '15%',
+      },
+      {
+        title: "별점",
+        dataIndex: 'rating',
+        key: 'rating',
+        scopedSlots: { customRender: 'rating' },
+        width: '15%',
+        sorter: (a, b) => a.rating - b.rating,
+        sortDirections: ['descend', 'ascend'],
+      },
+      {
+        title: "아기성별",
+        dataIndex: 'gender',
+        key: 'gender',
+        scopedSlots: { customRender: 'gender' },
+      },
+      {
+        title: "아기생일",
+        dataIndex: 'birth',
+        key: 'birth',
+        scopedSlots: { customRender: 'birth' },
+      },
+      {
+        title: "아기피부",
+        dataIndex: 'skinType',
+        key: 'skinType',
+        scopedSlots: { customRender: 'skinType' },
+      },
+      {
+        title: "등록일",
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        scopedSlots: { customRender: 'createdAt' },
+      },
+    ]
+    return {
+      columns: columns,
+      productData: [],
+      ratingArray: ratingArray
     }
+  },
+  methods: {
+    async setProductReviews() {
+      const response = await this.$axios.post(
+        "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/ProductReviewList",
+        {
+          productId: this.data.Product_Id,
+          categoryId: 0,
+          photoCheck: 0,
+          filter: 0,
+          userId: 0,
+          startNo: 0,
+          endNo: 1000
+        },
+        { headers: headers() }
+      );
+      if (response.status === 200) {
+        response.data.data.forEach((element, index) => {
+          element.no = response.data.data.length - index;
+        });
+        console.log(response.data.data)
+        this.productData = response.data.data;
+        this.$parent.loading = false;
+      }
+    },
+  },
+  watch: {
+    visible: function () {
+      if (this.visible) {
+        this.setProductReviews(this.data.Product_Id)
+      } else {
+        this.productData = []
+      }
+    }
+  }
 
 }
 </script>
 <style>
 .modal-container {
-    height: 60vh;
-    display: flex;
+  height: 60vh;
+  display: flex;
 }
 
 .left-area {
-    margin: 10px;
-    padding: 0 5px;
-    width: 70%;
-    flex-grow: 7;
-    height: 100%;
-    overflow-y: scroll;
+  margin: 10px;
+  padding: 0 5px;
+  width: 70%;
+  flex-grow: 7;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .right-area {
-    padding: 10px;
-    width: 30%;
-    flex-grow: 3;
+  padding: 10px;
+  width: 30%;
+  flex-grow: 3;
 }
 
 .card-wrapper {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .ant-card-grid {
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
