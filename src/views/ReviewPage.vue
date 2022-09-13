@@ -2,12 +2,13 @@
   <v-container id="user-profile-view" fluid tag="section">
     <h1>총 {{filteredData.length}} 건</h1>
     <div class="date-picker">
-      <a-date-picker v-model="startValue" :disabled-date="disabledStartDate" format="YYYY-MM-DD"
-        placeholder="시작일" @openChange="handleStartOpenChange" />
-      <a-date-picker v-model="endValue" :disabled-date="disabledEndDate" format="YYYY-MM-DD"
-        placeholder="종료일" :open="endOpen" @openChange="handleEndOpenChange" />
+      <a-date-picker v-model="startValue" :disabled-date="disabledStartDate" format="YYYY-MM-DD" placeholder="시작일"
+        @openChange="handleStartOpenChange" />
+      <a-date-picker v-model="endValue" :disabled-date="disabledEndDate" format="YYYY-MM-DD" placeholder="종료일"
+        :open="endOpen" @openChange="handleEndOpenChange" />
     </div>
-    <a-table :columns="columns" :data-source="filteredData" :rowKey="(record, index) => { return index }">
+    <a-table :columns="columns" :data-source="filteredData" :rowKey="(record, index) => { return index }"
+      :customRow="handleClickRow">
       <div slot="ProductReview_Url" slot-scope="ProductReview_Url" v-if="ProductReview_Url">
         <a-popover trigger="click">
           <template slot="content">
@@ -48,15 +49,20 @@
         <a-switch v-else />
       </div>
     </a-table>
+    <ModalComponent :data="modalValue" :visible="visible" />
   </v-container>
 </template>
 
 <script>
 import { dummys } from '../dummys/ReviewList';
 import moment from 'moment';
+import ModalComponent from '@/components/ReviewPage/ModalComponent.vue';
 
 export default {
   name: 'ReviewView',
+  components: {
+    ModalComponent
+  },
   methods: {
     moment,
     disabledStartDate(startValue) {
@@ -79,11 +85,32 @@ export default {
       }
     },
     handleEndOpenChange(open) {
-      this.endOpen = open;      
+      this.endOpen = open;
+    },
+    handleClickRow(record, index) {
+      return {
+        on: {
+          dblclick: () => {
+            console.log(record, index)
+            this.showModal(record)
+          },
+        }
+      }
+    },
+    showModal(value) {
+      this.visible = true;
+      this.modalValue = value;
+    },
+    handleOk() {
+      this.visible = false;
+    },
+    handleCancel() {
+      console.log('Clicked cancel button');
+      this.visible = false;
     },
   },
   watch: {
-    endOpen: function() {
+    endOpen: function () {
       if (!this.endOpen) {
         this.filteredData = this.data.filter((review) => {
           let createDate = moment(review.createdAt);
@@ -196,6 +223,8 @@ export default {
       startValue: null,
       endValue: moment(new Date().toJSON().slice(0, 10).replace(/-/g, '.').substring(0, 10)),
       endOpen: false,
+      modalValue: {},
+      visible: false,
     }
   }
 
@@ -205,6 +234,7 @@ export default {
 .date-picker {
   margin: 10px 0;
 }
+
 .ant-calendar-picker:last-child {
   margin-left: 10px;
 }
