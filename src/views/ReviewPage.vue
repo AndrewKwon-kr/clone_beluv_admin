@@ -108,7 +108,10 @@ export default {
     handleCancel() {
       this.loading = false;
       this.visible = false;
-      this.modalValue = [];
+      setTimeout(() => {
+        this.modalValue = [];
+      }, 100)
+      
     },
   },
   watch: {
