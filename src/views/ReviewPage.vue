@@ -7,48 +7,7 @@
       <a-date-picker v-model="endValue" :disabled-date="disabledEndDate" format="YYYY-MM-DD" placeholder="종료일"
         :open="endOpen" @openChange="handleEndOpenChange" />
     </div>
-    <a-table :columns="columns" :data-source="filteredData" :rowKey="(record, index) => { return index }"
-      :customRow="handleClickRow">
-      <div slot="ProductReview_Url" slot-scope="ProductReview_Url" v-if="ProductReview_Url">
-        <a-popover trigger="click">
-          <template slot="content">
-            <img :src=ProductReview_Url v-bind:style="{width: '600px', height: '400px'}" />
-          </template>
-          <img :src=ProductReview_Url v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
-        </a-popover>
-      </div>
-      <div v-else>
-        <img :src="require('@/assets/ic-beluv.png')" />
-      </div>
-      <div slot="rating" slot-scope="rating">
-        <a-rate :value=rating disabled style="fontSize: 10px" />
-      </div>
-      <div slot="ProductReview_content" slot-scope="ProductReview_content">
-        <a-tooltip placement="bottom">
-          <template slot="title">
-            <span>{{ ProductReview_content }}</span>
-          </template>
-          <span>{{ ProductReview_content.substr(0, 30) }}...</span>
-          <span class="text-bold">({{ ProductReview_content.length }})</span>
-          <v-icon color="green darken-2">mdi-card-text</v-icon>
-        </a-tooltip>
-      </div>
-      <div slot="ProductReview_Content_bad" slot-scope="ProductReview_Content_bad">
-        <a-tooltip placement="bottom">
-          <template slot="title">
-            <span>{{ ProductReview_Content_bad }}</span>
-          </template>
-          <span>{{ ProductReview_Content_bad.substr(0, 30) }}...</span>
-          <span class="text-bold" v-if="ProductReview_Content_bad">({{ ProductReview_Content_bad.length }})</span>
-          <v-icon color="green darken-2">mdi-card-text</v-icon>
-        </a-tooltip>
-      </div>
-      <span slot="createdAt" slot-scope="createdAt">{{ createdAt.substr(0,10) }}</span>
-      <div slot="status" slot-scope="status">
-        <a-switch v-if="status==='ACTIVATE'" default-checked />
-        <a-switch v-else />
-      </div>
-    </a-table>
+    <ReviewTableVue :filteredData="filteredData" />
     <ModalComponent 
       :data="modalValue"
       :visible="visible"
@@ -61,11 +20,13 @@
 import { dummys } from '../dummys/ReviewList';
 import moment from 'moment';
 import ModalComponent from '@/components/ReviewPage/ModalComponent.vue';
+import ReviewTableVue from '@/components/ReviewPage/ReviewTable.vue';
 
 export default {
   name: 'ReviewView',
   components: {
-    ModalComponent
+    ModalComponent,
+    ReviewTableVue
   },
   methods: {
     moment,
