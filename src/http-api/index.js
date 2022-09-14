@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const HOST = "http://beluv-dev.mayoube.co.kr/web";
+const HOST = "http://beluv-dev.mayoube.co.kr/web";
+const API_CORE_HOST = "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api";
 
 export const headers = () => {
   return {
@@ -20,7 +21,7 @@ export function getAppUserInfo() {
 export function getProductReviews(productId) {
   return axios
     .post(
-      "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/ProductReviewList",
+      `${API_CORE_HOST}/Review/ProductReviewList`,
       {
         productId: productId,
         categoryId: 0,
@@ -37,7 +38,7 @@ export function getProductReviews(productId) {
 
 export function getReviewRating(productId) {
   return axios.post(
-    "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/Review_Rating",
+    `${API_CORE_HOST}/Review/Review_Rating`,
     {
       productId: productId,
       userId: 0,
