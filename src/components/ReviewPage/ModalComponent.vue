@@ -56,7 +56,7 @@
           <a-card :loading="loading">
             <a-card-grid style="display:flex; width:100%; justify-content: space-between;">
               <span class="bold">
-                <v-icon color="#ff1744">mdi-star</v-icon> 
+                <v-icon color="#ff1744">mdi-star</v-icon>
                 {{ (this.productData.map((data) => data.rating)?.reduce((a, b) => a + b, 0) /
                 this.productData.length).toFixed(2) }}
               </span>
@@ -68,23 +68,20 @@
           <a-card :loading="loading">
             <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
               <span class="rating-text">{{ rating }}점</span>
-              <a-progress 
-                :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5" 
-                status="active" 
-                :show-info="false"
-                :stroke-color="colorArray[rating - 1]"
-                />
+              <a-progress :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5"
+                status="active" :show-info="false" :stroke-color="colorArray[rating - 1]" />
               <span class="rating-text">{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
             </a-card-grid>
           </a-card>
         </div>
         <a-card :loading="loading">
-            <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index" style="display:flex; width:100%; justify-content: space-between;">
-              <div class="grid-div">{{review.title}}</div>
-              <div class="grid-div review-name">{{review.name}}</div>
-              <div class="grid-div bold">{{review.per}}%</div>
-            </a-card-grid>
-          </a-card>
+          <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index"
+            style="display:flex; width:100%; justify-content: space-between;">
+            <div class="grid-div">{{review.title}}</div>
+            <div class="grid-div review-name">{{review.name}}</div>
+            <div class="grid-div bold">{{review.per}}%</div>
+          </a-card-grid>
+        </a-card>
       </div>
     </div>
   </a-modal>
@@ -282,6 +279,8 @@ export default {
 .grid-div {
   width: 33%;
   margin-right: 10%;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .grid-div:last-child {
