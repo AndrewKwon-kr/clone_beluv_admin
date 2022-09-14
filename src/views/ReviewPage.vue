@@ -111,7 +111,6 @@ export default {
       setTimeout(() => {
         this.modalValue = [];
       }, 100)
-      
     },
   },
   watch: {

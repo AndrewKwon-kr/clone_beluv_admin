@@ -64,20 +64,28 @@
             </a-card-grid>
           </a-card>
         </div>
+        <div class="card-wrapper">
+          <a-card :loading="loading">
+            <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
+              <span class="rating-text">{{ rating }}점</span>
+              <a-progress 
+                :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5" 
+                status="active" 
+                :show-info="false"
+                :stroke-color="colorArray[rating - 1]"
+                />
+              <span class="rating-text">{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
+            </a-card-grid>
+          </a-card>
+        </div>
         <a-card :loading="loading">
-          <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
-            <span class="rating-text">{{ rating }}점</span>
-            <a-progress 
-              :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5" 
-              status="active" 
-              :show-info="false"
-              :stroke-color="colorArray[rating - 1]"
-              />
-            <span class="rating-text">{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
-          </a-card-grid>
-        </a-card>
+            <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index" style="display:flex; width:100%;">
+              <span>{{review.title}}</span>
+              <span class="review-name">{{review.name}}</span>
+              <span class="review-per">{{review.per}}%</span>
+            </a-card-grid>
+          </a-card>
       </div>
-
     </div>
   </a-modal>
 </template>
@@ -95,7 +103,7 @@ export default {
         title: "No",
         dataIndex: 'no',
         key: 'no',
-        width: '7%',
+        width: '10%',
         sorter: (a, b) => a.no - b.no,
         sortDirections: ['ascend'],
       },
@@ -163,6 +171,7 @@ export default {
     return {
       columns: columns,
       productData: [],
+      reviewData: {},
       ratingArray: ratingArray,
       colorArray: colorArray
     }
@@ -186,18 +195,34 @@ export default {
         response.data.data.forEach((element, index) => {
           element.no = response.data.data.length - index;
         });
-        console.log(response.data.data)
+        // console.log(response.data.data)
         this.productData = response.data.data;
         this.$parent.loading = false;
+      }
+    },
+    async setReviewRating() {
+      const response = await this.$axios.post(
+        "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/Review_Rating",
+        {
+          productId: this.data.Product_Id,
+          userId: 0,
+        },
+        { headers: headers() }
+      );
+      if (response.status === 200) {
+        this.reviewData = response.data.data;
+        console.log(response.data.data);
       }
     },
   },
   watch: {
     visible: function () {
       if (this.visible) {
-        this.setProductReviews(this.data.Product_Id)
+        this.setProductReviews(this.data.Product_Id);
+        this.setReviewRating(this.data.Product_Id);
       } else {
-        this.productData = []
+        this.productData = [];
+        this.reviewData = {};
       }
     }
   }
@@ -243,5 +268,13 @@ export default {
 
 .rating-text {
   width: 30px;
+}
+
+.review-name {
+  color: rgb(56, 142, 60);
+  font-weight: bold;
+}
+.review-per {
+  font-weight: bold;
 }
 </style>
