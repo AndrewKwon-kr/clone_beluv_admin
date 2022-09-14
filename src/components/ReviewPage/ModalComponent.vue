@@ -44,7 +44,7 @@
   </a-modal>
 </template>
 <script>
-import { headers, getProductReviews, getReviewRating } from '@/http-api/index'
+import { getProductReviews, getReviewRating } from '@/http-api/index'
 import ProductTableVue from './ProductTable.vue';
 
 export default {
