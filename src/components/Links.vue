@@ -24,7 +24,9 @@
         md="auto"
       >
         <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center">
-          &copy; {{ (new Date()).getFullYear() }} Mayoube💗
+          <a href="https://mayoube.co.kr/" target="_blank">
+            &copy; {{ (new Date()).getFullYear() }} Mayoube💗
+          </a>
          
         </div>
       </v-col>
