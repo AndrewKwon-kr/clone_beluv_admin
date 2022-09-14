@@ -55,7 +55,7 @@
         <div class="card-wrapper">
           <a-card :loading="loading">
             <a-card-grid style="display:flex; width:100%; justify-content: space-between;">
-              <span>
+              <span class="bold">
                 <v-icon color="#ff1744">mdi-star</v-icon> 
                 {{ (this.productData.map((data) => data.rating)?.reduce((a, b) => a + b, 0) /
                 this.productData.length).toFixed(2) }}
@@ -79,10 +79,10 @@
           </a-card>
         </div>
         <a-card :loading="loading">
-            <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index" style="display:flex; width:100%;">
-              <span>{{review.title}}</span>
-              <span class="review-name">{{review.name}}</span>
-              <span class="review-per">{{review.per}}%</span>
+            <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index" style="display:flex; width:100%; justify-content: space-between;">
+              <div class="grid-div">{{review.title}}</div>
+              <div class="grid-div review-name">{{review.name}}</div>
+              <div class="grid-div bold">{{review.per}}%</div>
             </a-card-grid>
           </a-card>
       </div>
@@ -274,7 +274,18 @@ export default {
   color: rgb(56, 142, 60);
   font-weight: bold;
 }
-.review-per {
+
+.bold {
   font-weight: bold;
+}
+
+.grid-div {
+  width: 33%;
+  margin-right: 10%;
+}
+
+.grid-div:last-child {
+  text-align: right;
+  margin: 0;
 }
 </style>
