@@ -27,7 +27,7 @@
 <script>
 // Utilities
 import { get } from 'vuex-pathify'
-import { HOST, headers } from '../http-api/index'
+import { getAppUserInfo } from '../http-api/index'
 import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
 
 import {
@@ -58,9 +58,7 @@ export default {
   },
   methods: {
     async getData() {
-      const res = await this.$axios.get(`${HOST}/user/count`, {
-        headers: headers()
-      });
+      const res = await getAppUserInfo();
 
       if (res.status === 200) {
         this.items = res.data.result;
@@ -70,7 +68,7 @@ export default {
       }
       setTimeout(() => {
         this.loading = false;
-      }, 500)
+      }, 200)
     },
 
   },

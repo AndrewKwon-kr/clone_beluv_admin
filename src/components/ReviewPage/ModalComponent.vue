@@ -5,6 +5,7 @@
       <div class="left-area">
         <ProductTableVue 
           :data="productData"
+          :loading="loading"
         />
       </div>
       <div class="right-area">
@@ -43,7 +44,7 @@
   </a-modal>
 </template>
 <script>
-import { headers } from '@/http-api/index'
+import { headers, getProductReviews, getReviewRating } from '@/http-api/index'
 import ProductTableVue from './ProductTable.vue';
 
 export default {
@@ -65,19 +66,7 @@ export default {
   },
   methods: {
     async setProductReviews() {
-      const response = await this.$axios.post(
-        "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/ProductReviewList",
-        {
-          productId: this.data.Product_Id,
-          categoryId: 0,
-          photoCheck: 0,
-          filter: 0,
-          userId: 0,
-          startNo: 0,
-          endNo: 1000
-        },
-        { headers: headers() }
-      );
+      const response = await getProductReviews(this.data.Product_Id);
       if (response.status === 200) {
         response.data.data.forEach((element, index) => {
           element.no = response.data.data.length - index;
@@ -88,14 +77,7 @@ export default {
       }
     },
     async setReviewRating() {
-      const response = await this.$axios.post(
-        "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api/Review/Review_Rating",
-        {
-          productId: this.data.Product_Id,
-          userId: 0,
-        },
-        { headers: headers() }
-      );
+      const response = await getReviewRating(this.data.Product_Id);
       if (response.status === 200) {
         this.reviewData = response.data.data;
         console.log(response.data.data);

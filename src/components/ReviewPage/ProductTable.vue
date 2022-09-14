@@ -49,7 +49,7 @@
 </template>
 <script>
 export default {
-  props: ['data'],
+  props: ['data', 'loading'],
   name: 'productTable',
   data() {
     const columns = [
