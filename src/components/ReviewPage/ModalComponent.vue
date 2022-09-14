@@ -64,11 +64,16 @@
             </a-card-grid>
           </a-card>
         </div>
-
         <a-card :loading="loading">
           <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
-            <span>{{ rating }}점</span>
-            <span>{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
+            <span class="rating-text">{{ rating }}점</span>
+            <a-progress 
+              :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5" 
+              status="active" 
+              :show-info="false"
+              :stroke-color="colorArray[rating - 1]"
+              />
+            <span class="rating-text">{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
           </a-card-grid>
         </a-card>
       </div>
@@ -84,6 +89,7 @@ export default {
   name: 'modalComponent',
   data() {
     const ratingArray = ['5', '4', '3', '2', '1'];
+    const colorArray = ['#1976d2', '#303f9f', '#00796b', '#fbc02d', '#e64a19']
     const columns = [
       {
         title: "No",
@@ -157,7 +163,8 @@ export default {
     return {
       columns: columns,
       productData: [],
-      ratingArray: ratingArray
+      ratingArray: ratingArray,
+      colorArray: colorArray
     }
   },
   methods: {
@@ -227,5 +234,14 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.ant-progress-line {
+  margin: 0 20px !important;
+  width: 80% !important;
+}
+
+.rating-text {
+  width: 30px;
 }
 </style>
