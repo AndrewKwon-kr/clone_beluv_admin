@@ -12,7 +12,6 @@
             <v-icon class="mr-2" small v-text="actionIcon" />
             <div class="text-truncate">
               {{ actionText }}
-             
             </div>
           </template>
         </material-stat-card>
