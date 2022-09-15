@@ -6,16 +6,19 @@
       </div>
     </v-row>
     <v-row v-else>
-      <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
-        <material-stat-card v-bind="attrs">
-          <template #actions>
-            <v-icon class="mr-2" small v-text="actionIcon" />
-            <div class="text-truncate">
-              {{ actionText }}
-            </div>
-          </template>
-        </material-stat-card>
-      </v-col>
+      <div class="card-wrapper">
+        <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
+          <material-stat-card v-bind="attrs">
+            <template #actions>
+              <v-icon class="mr-2" small v-text="actionIcon" />
+              <div class="text-truncate">
+                {{ actionText }}
+              </div>
+            </template>
+          </material-stat-card>
+        </v-col>
+      </div>
+
     </v-row>
     <LineChartGenerator :chart-options="chartOptions" :chart-data="chartData" :chart-id="chartId"
       :dataset-id-key="datasetIdKey" :plugins="plugins" :css-classes="cssClasses" :styles="styles" :width="width"
@@ -196,5 +199,13 @@ export default {
   justify-content: center;
   align-items: center;
 
+}
+
+.card-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100vw;
 }
 </style>
