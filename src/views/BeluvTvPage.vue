@@ -1,6 +1,6 @@
 <template>
   <v-container id="user-profile-view" fluid tag="section">
-    <h1>총 {{data.length}} 건</h1>
+    <h1>총 {{ data.length }} 건</h1>
     <VideoListTable :data="data" />
   </v-container>
 </template>
@@ -12,13 +12,12 @@ import VideoListTable from '@/components/BeluvTvPage/VideoListTable.vue';
 export default {
   name: 'BeluvTvView',
   components: {
-    VideoListTable
+    VideoListTable,
   },
   data() {
     return {
-      data: dummys
-    }
-  }
-
-}
+      data: dummys,
+    };
+  },
+};
 </script>

@@ -1,11 +1,22 @@
 <template>
   <v-container id="user-profile-view" fluid tag="section">
-    <h1>총 {{filteredData.length}} 건</h1>
+    <h1>총 {{ filteredData.length }} 건</h1>
     <div class="date-picker">
-      <a-date-picker v-model="startValue" :disabled-date="disabledStartDate" format="YYYY-MM-DD" placeholder="시작일"
-        @openChange="handleStartOpenChange" />
-      <a-date-picker v-model="endValue" :disabled-date="disabledEndDate" format="YYYY-MM-DD" placeholder="종료일"
-        :open="endOpen" @openChange="handleEndOpenChange" />
+      <a-date-picker
+        v-model="startValue"
+        :disabled-date="disabledStartDate"
+        format="YYYY-MM-DD"
+        placeholder="시작일"
+        @openChange="handleStartOpenChange"
+      />
+      <a-date-picker
+        v-model="endValue"
+        :disabled-date="disabledEndDate"
+        format="YYYY-MM-DD"
+        placeholder="종료일"
+        :open="endOpen"
+        @openChange="handleEndOpenChange"
+      />
     </div>
     <ReviewTableVue :filteredData="filteredData" />
     <ModalComponent :data="modalValue" :visible="visible" :loading="loading" />
@@ -22,7 +33,7 @@ export default {
   name: 'ReviewView',
   components: {
     ModalComponent,
-    ReviewTableVue
+    ReviewTableVue,
   },
   methods: {
     moment,
@@ -52,10 +63,10 @@ export default {
       return {
         on: {
           dblclick: () => {
-            this.showModal(record)
+            this.showModal(record);
           },
-        }
-      }
+        },
+      };
     },
     showModal(value) {
       this.loading = true;
@@ -67,7 +78,7 @@ export default {
       this.visible = false;
       setTimeout(() => {
         this.modalValue = [];
-      }, 100)
+      }, 100);
     },
   },
   watch: {
@@ -79,21 +90,20 @@ export default {
           let endDate = moment(this.endValue);
 
           return moment(createDate).isBetween(startDate, endDate);
-        })
+        });
       }
-    }
+    },
   },
   data() {
-
     const columns = [
       {
-        title: "No",
+        title: 'No',
         dataIndex: 'review_Id',
         key: 'review_Id',
-        width: '5%'
+        width: '5%',
       },
       {
-        title: "대카테고리",
+        title: '대카테고리',
         dataIndex: 'category_Name',
         key: 'category_Name',
         width: '8%',
@@ -110,52 +120,52 @@ export default {
         onFilter: (value, record) => record.category_Name.indexOf(value) === 0,
       },
       {
-        title: "소카테고리",
+        title: '소카테고리',
         dataIndex: 'subCategory_Name',
         key: 'subCategory_Name',
         width: '8%',
       },
       {
-        title: "브랜드명",
+        title: '브랜드명',
         dataIndex: 'barnd_Name',
         key: 'barnd_Name',
         width: '7%',
       },
       {
-        title: "제품명",
+        title: '제품명',
         dataIndex: 'product_Title',
         key: 'product_Title',
         width: '7%',
       },
       {
-        title: "글쓴이",
+        title: '글쓴이',
         dataIndex: 'user_NickName',
         key: 'user_NickName',
         width: '7%',
       },
       {
-        title: "이미지",
+        title: '이미지',
         dataIndex: 'ProductReview_Url',
         key: 'ProductReview_Url',
         scopedSlots: { customRender: 'ProductReview_Url' },
         width: '7%',
       },
       {
-        title: "좋은점(글수)",
+        title: '좋은점(글수)',
         dataIndex: 'ProductReview_content',
         key: 'ProductReview_content',
         scopedSlots: { customRender: 'ProductReview_content' },
         width: '15%',
       },
       {
-        title: "안좋은점(글수)",
+        title: '안좋은점(글수)',
         dataIndex: 'ProductReview_Content_bad',
         key: 'ProductReview_Content_bad',
         scopedSlots: { customRender: 'ProductReview_Content_bad' },
         width: '15%',
       },
       {
-        title: "별점",
+        title: '별점',
         dataIndex: 'rating',
         key: 'rating',
         scopedSlots: { customRender: 'rating' },
@@ -164,18 +174,18 @@ export default {
         sortDirections: ['descend', 'ascend'],
       },
       {
-        title: "등록일",
+        title: '등록일',
         dataIndex: 'createdAt',
         key: 'createdAt',
         scopedSlots: { customRender: 'createdAt' },
       },
       {
-        title: "활성",
+        title: '활성',
         dataIndex: 'status',
         key: 'status',
         scopedSlots: { customRender: 'status' },
       },
-    ]
+    ];
 
     return {
       columns: columns,
@@ -186,11 +196,10 @@ export default {
       endOpen: false,
       modalValue: {},
       visible: false,
-      loading: true
-    }
-  }
-
-}
+      loading: true,
+    };
+  },
+};
 </script>
 <style>
 .date-picker {
@@ -213,7 +222,7 @@ export default {
   display: none;
 }
 
-.ant-table-thead>tr>th {
+.ant-table-thead > tr > th {
   text-align: center;
 }
 
@@ -222,7 +231,7 @@ export default {
   text-align: center;
 }
 
-.ant-table-tbody>tr>td {
+.ant-table-tbody > tr > td {
   font-weight: 600 !important;
 }
 

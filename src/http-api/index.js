@@ -1,22 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
-const HOST = "http://beluv-dev.mayoube.co.kr/web";
-const API_CORE_HOST = "http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api";
+const HOST = 'http://beluv-dev.mayoube.co.kr/web';
+const API_CORE_HOST =
+  'http://beluvapicore-env.eba-swmkh4rv.ap-northeast-2.elasticbeanstalk.com/api';
 
 export const headers = () => {
   return {
-    "Content-Type": "application/json",
-    "LOGIN-TYPE": "ADMIN",
-    "X-ACCESS-TOKEN":
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyMi0wOS0wMiAxNToxMzoxOSIsImVtYWlsIjoiaGoua3dvbkBtYXlvdWJlLmNvLmtyIiwibG9naW5UeXBlIjoiQURNSU4ifQ.XjsHSnHrTONfwXVSRc_Bm2UJwp0fID3yFpzQvKJK_yA",
+    'Content-Type': 'application/json',
+    'LOGIN-TYPE': 'ADMIN',
+    'X-ACCESS-TOKEN':
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyMi0wOS0wMiAxNToxMzoxOSIsImVtYWlsIjoiaGoua3dvbkBtYXlvdWJlLmNvLmtyIiwibG9naW5UeXBlIjoiQURNSU4ifQ.XjsHSnHrTONfwXVSRc_Bm2UJwp0fID3yFpzQvKJK_yA',
   };
 };
 
 export function getAppUserInfo() {
-  return axios.get(`${HOST}/user/count`, {
-    headers: headers()
-  })
-  .then((res) => res)
+  return axios
+    .get(`${HOST}/user/count`, {
+      headers: headers(),
+    })
+    .then((res) => res);
 }
 
 export function getProductReviews(productId) {
@@ -32,19 +34,20 @@ export function getProductReviews(productId) {
         startNo: 0,
         endNo: 1000,
       },
-      { headers: headers() }
+      { headers: headers() },
     )
-.then((res) => res);
+    .then((res) => res);
 }
 
 export function getReviewRating(productId) {
-  return axios.post(
-    `${API_CORE_HOST}/Review/Review_Rating`,
-    {
-      productId: productId,
-      userId: 0,
-    },
-    { headers: headers() }
-  )
-  .then((res) => res)
+  return axios
+    .post(
+      `${API_CORE_HOST}/Review/Review_Rating`,
+      {
+        productId: productId,
+        userId: 0,
+      },
+      { headers: headers() },
+    )
+    .then((res) => res);
 }

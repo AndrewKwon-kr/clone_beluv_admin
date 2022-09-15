@@ -7,7 +7,13 @@
     </v-row>
     <v-row v-else>
       <div class="dashbord-card-wrapper">
-        <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
+        <v-col
+          v-for="({ actionIcon, actionText, ...attrs }, i) in stats"
+          :key="i"
+          cols="12"
+          md="6"
+          lg="3"
+        >
           <material-stat-card v-bind="attrs">
             <template #actions>
               <v-icon class="mr-2" small v-text="actionIcon" />
@@ -20,16 +26,24 @@
       </div>
     </v-row>
     <label>{{ getMsg }}</label>
-    <LineChartGenerator :chart-options="chartOptions" :chart-data="chartData" :chart-id="chartId"
-      :dataset-id-key="datasetIdKey" :plugins="plugins" :css-classes="cssClasses" :styles="styles" :width="width"
-      :height="height" />
+    <LineChartGenerator
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      :chart-id="chartId"
+      :dataset-id-key="datasetIdKey"
+      :plugins="plugins"
+      :css-classes="cssClasses"
+      :styles="styles"
+      :width="width"
+      :height="height"
+    />
   </v-container>
 </template>
 
 <script>
-import { getAppUserInfo } from "../http-api/index";
-import { Line as LineChartGenerator } from "vue-chartjs/legacy";
-import MaterialStatsCardVue from "@/components/MaterialStatsCard.vue";
+import { getAppUserInfo } from '../http-api/index';
+import { Line as LineChartGenerator } from 'vue-chartjs/legacy';
+import MaterialStatsCardVue from '@/components/MaterialStatsCard.vue';
 
 import {
   Chart as ChartJS,
@@ -40,7 +54,7 @@ import {
   LinearScale,
   CategoryScale,
   PointElement,
-} from "chart.js";
+} from 'chart.js';
 
 ChartJS.register(
   Title,
@@ -49,11 +63,11 @@ ChartJS.register(
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
 );
 
 export default {
-  name: "DashboardView",
+  name: 'DashboardView',
   components: {
     LineChartGenerator,
     MaterialStatsCardVue,
@@ -76,7 +90,7 @@ export default {
       }, 200);
     },
     onChangedMsg() {
-      this.$store.dispatch("callMutation", { newMsg: "World !!" });
+      this.$store.dispatch('callMutation', { newMsg: 'World !!' });
     },
   },
   async mounted() {
@@ -86,11 +100,11 @@ export default {
   props: {
     chartId: {
       type: String,
-      default: "line-chart",
+      default: 'line-chart',
     },
     datasetIdKey: {
       type: String,
-      default: "label",
+      default: 'label',
     },
     width: {
       type: Number,
@@ -101,12 +115,12 @@ export default {
       default: 400,
     },
     cssClasses: {
-      default: "",
+      default: '',
       type: String,
     },
     styles: {
       type: Object,
-      default: () => { },
+      default: () => {},
     },
     plugins: {
       type: Array,
@@ -121,59 +135,59 @@ export default {
       items: {},
       stats: [
         {
-          actionIcon: "mdi-alpha-a-box-outline",
-          actionText: "10만 가즈아...!",
-          color: "#FD9A13",
-          icon: "mdi-account-multiple",
-          title: "총 회원수",
-          value: "all",
+          actionIcon: 'mdi-alpha-a-box-outline',
+          actionText: '10만 가즈아...!',
+          color: '#FD9A13',
+          icon: 'mdi-account-multiple',
+          title: '총 회원수',
+          value: 'all',
         },
         {
-          actionIcon: "mdi-alpha-t-box-outline",
-          actionText: "오늘 가입해주신 분들",
-          color: "primary",
-          icon: "mdi-account-arrow-up",
-          title: "오늘 가입회원",
-          value: "today",
+          actionIcon: 'mdi-alpha-t-box-outline',
+          actionText: '오늘 가입해주신 분들',
+          color: 'primary',
+          icon: 'mdi-account-arrow-up',
+          title: '오늘 가입회원',
+          value: 'today',
         },
         {
-          actionIcon: "mdi-alpha-w-box-outline",
-          actionText: "이번주 가입자분들",
-          color: "success",
-          icon: "mdi-account-multiple-plus",
-          title: "이번주 가입회원",
-          value: "week",
+          actionIcon: 'mdi-alpha-w-box-outline',
+          actionText: '이번주 가입자분들',
+          color: 'success',
+          icon: 'mdi-account-multiple-plus',
+          title: '이번주 가입회원',
+          value: 'week',
         },
         {
-          actionIcon: "mdi-alpha-m-box-outline",
-          actionText: "이번달 가입자분들",
-          color: "info",
-          icon: "mdi-account-group",
-          title: "이번달 가입회원",
-          value: "month",
+          actionIcon: 'mdi-alpha-m-box-outline',
+          actionText: '이번달 가입자분들',
+          color: 'info',
+          icon: 'mdi-account-group',
+          title: '이번달 가입회원',
+          value: 'month',
         },
         {
-          actionIcon: "mdi-history",
-          actionText: "돌아와요",
-          color: "#DC2626",
-          icon: "mdi-account-multiple-minus",
-          title: "탈퇴자",
-          value: "inActivatedUser",
+          actionIcon: 'mdi-history',
+          actionText: '돌아와요',
+          color: '#DC2626',
+          icon: 'mdi-account-multiple-minus',
+          title: '탈퇴자',
+          value: 'inActivatedUser',
         },
       ],
       chartData: {
-        labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월"],
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월'],
         datasets: [
           {
-            label: "가입(샘플)",
-            backgroundColor: "#f87979",
-            borderColor: "#f87979",
+            label: '가입(샘플)',
+            backgroundColor: '#f87979',
+            borderColor: '#f87979',
             data: [40, 39, 10, 40, 39, 80, 40, 90],
           },
           {
-            label: "탈퇴(샘플)",
-            backgroundColor: "#5B82E3",
-            borderColor: "#5B82E3",
+            label: '탈퇴(샘플)',
+            backgroundColor: '#5B82E3',
+            borderColor: '#5B82E3',
             data: [20, 9, 10, 14, 6, 16, 30, 8],
           },
         ],

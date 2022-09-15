@@ -1,6 +1,13 @@
 <template>
-  <a-modal :title="`${data.product_Title} (${data.Product_Id})`" :visible="visible" @cancel="this.$parent.handleCancel"
-    :closable="false" width="80%" height="40%" :ok-button-props="{ style: { display: 'none'} }">
+  <a-modal
+    :title="`${data.product_Title} (${data.Product_Id})`"
+    :visible="visible"
+    @cancel="this.$parent.handleCancel"
+    :closable="false"
+    width="80%"
+    height="40%"
+    :ok-button-props="{ style: { display: 'none' } }"
+  >
     <div class="modal-container">
       <div class="left-area">
         <ProductTableVue :data="productData" :loading="loading" />
@@ -8,11 +15,18 @@
       <div class="right-area">
         <div class="card-wrapper">
           <a-card :loading="loading">
-            <a-card-grid style="display:flex; width:100%; justify-content: space-between;">
+            <a-card-grid
+              style="display: flex; width: 100%; justify-content: space-between"
+            >
               <span class="bold">
                 <v-icon color="#ff1744">mdi-star</v-icon>
-                {{ (this.productData.map((data) => data.rating)?.reduce((a, b) => a + b, 0) /
-                this.productData.length).toFixed(2) }}
+                {{
+                  (
+                    this.productData
+                      .map((data) => data.rating)
+                      ?.reduce((a, b) => a + b, 0) / this.productData.length
+                  ).toFixed(2)
+                }}
               </span>
               <span>별점 분포 통계</span>
             </a-card-grid>
@@ -20,20 +34,37 @@
         </div>
         <div class="card-wrapper">
           <a-card :loading="loading">
-            <a-card-grid v-for="(rating, index) in ratingArray" :key="index" style="width:100%;">
+            <a-card-grid
+              v-for="(rating, index) in ratingArray"
+              :key="index"
+              style="width: 100%"
+            >
               <span class="rating-text">{{ rating }}점</span>
-              <a-progress :percent="productData.filter((data) => data.rating === Number(rating)).length * 2.5"
-                status="active" :show-info="false" :stroke-color="colorArray[rating - 1]" />
-              <span class="rating-text">{{ productData.filter((data) => data.rating === Number(rating)).length }}</span>
+              <a-progress
+                :percent="
+                  productData.filter((data) => data.rating === Number(rating))
+                    .length * 2.5
+                "
+                status="active"
+                :show-info="false"
+                :stroke-color="colorArray[rating - 1]"
+              />
+              <span class="rating-text">{{
+                productData.filter((data) => data.rating === Number(rating))
+                  .length
+              }}</span>
             </a-card-grid>
           </a-card>
         </div>
         <a-card :loading="loading">
-          <a-card-grid v-for="(review, index) in reviewData.reviewitems" :key="index"
-            style="display:flex; width:100%; justify-content: space-between;">
-            <div class="grid-div">{{review.title}}</div>
-            <div class="grid-div review-name">{{review.name}}</div>
-            <div class="grid-div bold">{{review.per}}%</div>
+          <a-card-grid
+            v-for="(review, index) in reviewData.reviewitems"
+            :key="index"
+            style="display: flex; width: 100%; justify-content: space-between"
+          >
+            <div class="grid-div">{{ review.title }}</div>
+            <div class="grid-div review-name">{{ review.name }}</div>
+            <div class="grid-div bold">{{ review.per }}%</div>
           </a-card-grid>
         </a-card>
       </div>
@@ -41,25 +72,25 @@
   </a-modal>
 </template>
 <script>
-import { getProductReviews, getReviewRating } from '@/http-api/index'
+import { getProductReviews, getReviewRating } from '@/http-api/index';
 import ProductTableVue from './ProductTable.vue';
 
 export default {
   props: ['data', 'visible', 'loading'],
   name: 'modalComponent',
   components: {
-    ProductTableVue
+    ProductTableVue,
   },
   data() {
     const ratingArray = ['5', '4', '3', '2', '1'];
-    const colorArray = ['#1976d2', '#303f9f', '#00796b', '#fbc02d', '#e64a19']
+    const colorArray = ['#1976d2', '#303f9f', '#00796b', '#fbc02d', '#e64a19'];
 
     return {
       productData: [],
       reviewData: {},
       ratingArray: ratingArray,
-      colorArray: colorArray
-    }
+      colorArray: colorArray,
+    };
   },
   methods: {
     async setProductReviews() {
@@ -90,10 +121,9 @@ export default {
         this.productData = [];
         this.reviewData = {};
       }
-    }
-  }
-
-}
+    },
+  },
+};
 </script>
 <style>
 .modal-container {
