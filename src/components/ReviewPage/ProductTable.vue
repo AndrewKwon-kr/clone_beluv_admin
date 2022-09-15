@@ -14,10 +14,7 @@
         <div v-if="imageUrl">
           <a-popover trigger="click">
             <template slot="content">
-              <img
-                :src="imageUrl"
-                v-bind:style="{ width: '600px', height: '400px' }"
-              />
+              <img :src="imageUrl" v-bind:style="{ width: '600px', height: '400px' }" />
             </template>
             <img
               :src="imageUrl"
@@ -50,9 +47,7 @@
           <span>{{ content_bad }}</span>
         </template>
         <span>{{ content_bad.substr(0, 30) }}...</span>
-        <span class="text-bold" v-if="content_bad"
-          >({{ content_bad.length }})</span
-        >
+        <span class="text-bold" v-if="content_bad">({{ content_bad.length }})</span>
         <v-icon color="#388E3C">mdi-card-text</v-icon>
       </a-tooltip>
     </div>

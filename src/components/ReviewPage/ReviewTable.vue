@@ -9,22 +9,12 @@
     "
     :customRow="this.$parent.handleClickRow"
   >
-    <div
-      slot="ProductReview_Url"
-      slot-scope="ProductReview_Url"
-      v-if="ProductReview_Url"
-    >
+    <div slot="ProductReview_Url" slot-scope="ProductReview_Url" v-if="ProductReview_Url">
       <a-popover trigger="click">
         <template slot="content">
-          <img
-            :src="ProductReview_Url"
-            v-bind:style="{ width: '600px', height: '400px' }"
-          />
+          <img :src="ProductReview_Url" v-bind:style="{ width: '600px', height: '400px' }" />
         </template>
-        <img
-          :src="ProductReview_Url"
-          v-bind:style="{ width: '30px', height: '20px', cursor: 'pointer' }"
-        />
+        <img :src="ProductReview_Url" v-bind:style="{ width: '30px', height: '20px', cursor: 'pointer' }" />
       </a-popover>
     </div>
     <div v-else>
@@ -43,24 +33,17 @@
         <v-icon color="green darken-2">mdi-card-text</v-icon>
       </a-tooltip>
     </div>
-    <div
-      slot="ProductReview_Content_bad"
-      slot-scope="ProductReview_Content_bad"
-    >
+    <div slot="ProductReview_Content_bad" slot-scope="ProductReview_Content_bad">
       <a-tooltip placement="bottom">
         <template slot="title">
           <span>{{ ProductReview_Content_bad }}</span>
         </template>
         <span>{{ ProductReview_Content_bad?.substr(0, 30) }}...</span>
-        <span class="text-bold" v-if="ProductReview_Content_bad"
-          >({{ ProductReview_Content_bad.length }})</span
-        >
+        <span class="text-bold" v-if="ProductReview_Content_bad">({{ ProductReview_Content_bad.length }})</span>
         <v-icon color="green darken-2">mdi-card-text</v-icon>
       </a-tooltip>
     </div>
-    <span slot="createdAt" slot-scope="createdAt">{{
-      createdAt?.substr(0, 10)
-    }}</span>
+    <span slot="createdAt" slot-scope="createdAt">{{ createdAt?.substr(0, 10) }}</span>
     <div slot="status" slot-scope="status">
       <a-switch v-if="status === 'ACTIVATE'" default-checked />
       <a-switch v-else />

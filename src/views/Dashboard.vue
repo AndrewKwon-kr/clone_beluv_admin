@@ -7,13 +7,7 @@
     </v-row>
     <v-row v-else>
       <div class="dashbord-card-wrapper">
-        <v-col
-          v-for="({ actionIcon, actionText, ...attrs }, i) in stats"
-          :key="i"
-          cols="12"
-          md="6"
-          lg="3"
-        >
+        <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
           <material-stat-card v-bind="attrs">
             <template #actions>
               <v-icon class="mr-2" small v-text="actionIcon" />
@@ -56,15 +50,7 @@ import {
   PointElement,
 } from 'chart.js';
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LinearScale,
-  CategoryScale,
-  PointElement,
-);
+ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement);
 
 export default {
   name: 'DashboardView',

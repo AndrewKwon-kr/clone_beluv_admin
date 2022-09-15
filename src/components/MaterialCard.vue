@@ -16,20 +16,13 @@
 
           <slot name="heading" />
 
-          <div
-            v-if="heading"
-            class="text-h4 white--text pa-7 v-card--material__title"
-          >
+          <div v-if="heading" class="text-h4 white--text pa-7 v-card--material__title">
             {{ heading }}
           </div>
         </v-theme-provider>
       </v-sheet>
 
-      <div
-        v-if="hasTitle"
-        :class="fullHeader ? 'pt-4' : 'pl-3'"
-        class="text-h4 v-card--material__title"
-      >
+      <div v-if="hasTitle" :class="fullHeader ? 'pt-4' : 'pl-3'" class="text-h4 v-card--material__title">
         <slot name="title" />
 
         <template v-if="title">
@@ -77,12 +70,7 @@ export default {
       return !!(this.icon || this.heading || this.$slots.heading);
     },
     hasTitle() {
-      return !!(
-        this.title ||
-        this.subtitle ||
-        this.$slots.title ||
-        this.$slots.subtitle
-      );
+      return !!(this.title || this.subtitle || this.$slots.title || this.$slots.subtitle);
     },
   },
 };
