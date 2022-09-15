@@ -15,7 +15,8 @@ export const headers = () => {
 export function getAppUserInfo() {
   return axios.get(`${HOST}/user/count`, {
     headers: headers()
-  }).then((res) => res)
+  })
+  .then((res) => res)
 }
 
 export function getProductReviews(productId) {
@@ -33,7 +34,7 @@ export function getProductReviews(productId) {
       },
       { headers: headers() }
     )
-    .then((res) => res);
+.then((res) => res);
 }
 
 export function getReviewRating(productId) {

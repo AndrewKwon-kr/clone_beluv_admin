@@ -12,7 +12,7 @@
 
 <script>
   // Components
-  import Links from '@/components/Links'
+  import Links from '@/components/footer/Links'
 
   export default {
     name: 'DefaultFooter',

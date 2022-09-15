@@ -24,10 +24,9 @@
 </template>
 
 <script>
-// Utilities
-import { get } from 'vuex-pathify'
 import { getAppUserInfo } from '../http-api/index'
 import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
+import MaterialStatsCardVue from '@/components/MaterialStatsCard.vue'
 
 import {
   Chart as ChartJS,
@@ -53,7 +52,8 @@ ChartJS.register(
 export default {
   name: 'DashboardView',
   components: {
-    LineChartGenerator
+    LineChartGenerator,
+    MaterialStatsCardVue
   },
   methods: {
     async getData() {
@@ -185,12 +185,6 @@ export default {
         maintainAspectRatio: false
       }
     }
-  },
-  computed: {
-    sales: get('sales/sales'),
-    totalSales() {
-      return this.sales.reduce((acc, val) => acc + val.salesInM, 0)
-    },
   },
 }
 </script>

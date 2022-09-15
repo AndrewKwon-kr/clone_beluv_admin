@@ -10,7 +10,6 @@
           <a href="https://mayoube.co.kr/" target="_blank">
             &copy; {{ (new Date()).getFullYear() }} Mayoube💗
           </a>
-         
         </div>
       </v-col>
     </v-row>

@@ -25,16 +25,6 @@ const router = new Router({
       // Pages
       route('BeluvTvPage', null, '/play'),
       route('ReviewPage', null, '/review'),
-
-      // Components
-      route('Icons', null, 'components/icons'),
-      route('Typography', null, 'components/typography'),
-
-      // Tables
-      route('Regular Tables', null, 'tables/regular'),
-
-      // Maps
-      route('Google Maps', null, 'maps/google'),
     ]),
   ],
 })
