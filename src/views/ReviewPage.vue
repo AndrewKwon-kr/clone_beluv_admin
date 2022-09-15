@@ -8,11 +8,7 @@
         :open="endOpen" @openChange="handleEndOpenChange" />
     </div>
     <ReviewTableVue :filteredData="filteredData" />
-    <ModalComponent 
-      :data="modalValue"
-      :visible="visible"
-      :loading="loading"
-      />
+    <ModalComponent :data="modalValue" :visible="visible" :loading="loading" />
   </v-container>
 </template>
 

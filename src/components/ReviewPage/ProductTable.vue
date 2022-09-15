@@ -1,6 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" :rowKey="(record, index) => { return index }"
-    :loading="loading">
+  <a-table :columns="columns" :data-source="data" :rowKey="(record, index) => { return index }" :loading="loading">
     <div slot="url" slot-scope="url">
       <div v-for="(imageUrl, index) in url" v-bind:key="index">
         <div v-if="imageUrl">

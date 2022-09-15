@@ -3,10 +3,7 @@
     :closable="false" width="80%" height="40%" :ok-button-props="{ style: { display: 'none'} }">
     <div class="modal-container">
       <div class="left-area">
-        <ProductTableVue 
-          :data="productData"
-          :loading="loading"
-        />
+        <ProductTableVue :data="productData" :loading="loading" />
       </div>
       <div class="right-area">
         <div class="card-wrapper">

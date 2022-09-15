@@ -1,5 +1,5 @@
 // Pathify
-import { make } from 'vuex-pathify'
+import { make } from "vuex-pathify";
 
 // Data
 const state = {
@@ -8,34 +8,34 @@ const state = {
   mini: false,
   items: [
     {
-      title: '메인화면',
-      icon: 'mdi-monitor',
-      to: '/',
+      title: "메인화면",
+      icon: "mdi-monitor",
+      to: "/",
     },
-    
+
     {
-      title: '베럽TV',
-      icon: 'mdi-play-box-multiple',
-      to: '/play/',
+      title: "베럽TV",
+      icon: "mdi-play-box-multiple",
+      to: "/play/",
     },
     {
-      title: '리뷰관리',
-      icon: 'mdi-comment-edit',
-      to: '/review/',
+      title: "리뷰관리",
+      icon: "mdi-comment-edit",
+      to: "/review/",
     },
   ],
-}
+};
 
-const mutations = make.mutations(state)
+const mutations = make.mutations(state);
 
 const actions = {
   ...make.actions(state),
   init: async ({ dispatch }) => {
     //
   },
-}
+};
 
-const getters = {}
+const getters = {};
 
 export default {
   namespaced: true,
@@ -43,4 +43,4 @@ export default {
   mutations,
   actions,
   getters,
-}
+};

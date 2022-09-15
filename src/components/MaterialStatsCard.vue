@@ -1,14 +1,7 @@
 <template>
-  <material-card
-    class="v-card--material-stats"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <material-card class="v-card--material-stats" v-bind="$attrs" v-on="$listeners">
     <template #subtitle>
-      <div
-        class="text-right text-h3 v-card__subtitle--material-stats"
-        v-text="value"
-      />
+      <div class="text-right text-h3 v-card__subtitle--material-stats" v-text="value" />
     </template>
 
     <template #actions>
@@ -20,11 +13,11 @@
 </template>
 
 <script>
-  export default {
-    name: 'MaterialStatCard',
+export default {
+  name: 'MaterialStatCard',
 
-    props: { value: String },
-  }
+  props: { value: String },
+}
 </script>
 
 <style lang="sass">
