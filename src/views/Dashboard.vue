@@ -6,7 +6,7 @@
       </div>
     </v-row>
     <v-row v-else>
-      <div class="card-wrapper">
+      <div class="dashbord-card-wrapper">
         <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
           <material-stat-card v-bind="attrs">
             <template #actions>
@@ -201,7 +201,7 @@ export default {
 
 }
 
-.card-wrapper {
+.dashbord-card-wrapper {
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
