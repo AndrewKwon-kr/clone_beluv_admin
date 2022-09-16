@@ -55,6 +55,9 @@
         </a-card>
       </div>
     </div>
+    <template slot="footer">
+      <a-button key="back" @click="this.$parent.handleCancel"> 취소 </a-button>
+    </template>
   </a-modal>
 </template>
 <script>

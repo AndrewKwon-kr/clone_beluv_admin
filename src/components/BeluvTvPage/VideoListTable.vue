@@ -1,11 +1,19 @@
 <template>
-  <a-table :columns="columns" :data-source="data" :rowKey="(record, index) => { return index }">
+  <a-table
+    :columns="columns"
+    :data-source="data"
+    :rowKey="
+      (record, index) => {
+        return index;
+      }
+    "
+  >
     <div slot="thumbnails" slot-scope="thumbnails" class="thumbnail">
       <a-popover trigger="click">
         <template slot="content">
-          <img :src=thumbnails v-bind:style="{width: '600px', height: '400px'}" />
+          <img :src="thumbnails" v-bind:style="{ width: '600px', height: '400px' }" />
         </template>
-        <img :src=thumbnails v-bind:style="{width: '30px', height: '20px', cursor: 'pointer'}" />
+        <img :src="thumbnails" v-bind:style="{ width: '30px', height: '20px', cursor: 'pointer' }" />
       </a-popover>
     </div>
     <div slot="summary" slot-scope="summary">
@@ -23,19 +31,17 @@
       <v-icon v-if="status === 'ACTIVATE'" color="green darken-2">mdi-eye</v-icon>
       <v-icon v-else>mdi-eye-off</v-icon>
     </div>
-    <span slot="createdAt" slot-scope="createdAt">{{createdAt.substr(0,10)}}</span>
+    <span slot="createdAt" slot-scope="createdAt">{{ createdAt.substr(0, 10) }}</span>
   </a-table>
 </template>
 <script>
-
 export default {
   props: ['data'],
   name: 'VideoListTable',
   data() {
-
     const columns = [
       {
-        title: "No",
+        title: 'No',
         dataIndex: 'id',
         key: 'id',
       },
@@ -70,7 +76,7 @@ export default {
         key: 'thumbnails',
         width: '10%',
         dataIndex: 'thumbnails',
-        scopedSlots: { customRender: 'thumbnails' }
+        scopedSlots: { customRender: 'thumbnails' },
       },
       {
         title: '채널명',
@@ -85,24 +91,19 @@ export default {
           return (
             <div slot="title" slot-scope="title">
               <span>{{ text }}</span>
-              <button
-                icon
-                x-small
-                target="_blank"
-                onClick={() => window.open(record.videoLink)}
-              >
+              <button icon x-small target="_blank" onClick={() => window.open(record.videoLink)}>
                 <img src={require('@/assets/open-in-new.png')} style={{ width: '16px', marginLeft: '5px' }} />
               </button>
             </div>
-          )
-        }
+          );
+        },
       },
       {
         title: '요약글',
         dataIndex: 'summary',
         key: 'summary',
         width: '8%',
-        scopedSlots: { customRender: 'summary' }
+        scopedSlots: { customRender: 'summary' },
       },
       {
         title: '조회수',
@@ -137,33 +138,29 @@ export default {
         dataIndex: 'createdAt',
         key: 'createdAt',
         width: '7%',
-        scopedSlots: { customRender: 'createdAt' }
-
+        scopedSlots: { customRender: 'createdAt' },
       },
-    ]
+    ];
     return {
-
       columns: columns,
-    }
-  }
-
-
-}
+    };
+  },
+};
 </script>
 <style>
-  .ant-table-title {
-    display: none;
-  }
-  
-  .ant-table-thead>tr>th {
-    text-align: center;
-  }
-  
-  .ant-table-tbody {
-    background-color: white;
-    text-align: center;
-  }
-  .ant-table-tbody > tr > td {
-    font-weight: 600 !important;
-  }
-  </style>
+.ant-table-title {
+  display: none;
+}
+
+.ant-table-thead > tr > th {
+  text-align: center;
+}
+
+.ant-table-tbody {
+  background-color: white;
+  text-align: center;
+}
+.ant-table-tbody > tr > td {
+  font-weight: 600 !important;
+}
+</style>

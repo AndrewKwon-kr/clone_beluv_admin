@@ -1,10 +1,10 @@
 // Vue
-import Vue from "vue";
-import Vuex from "vuex";
-import pathify from "@/plugins/vuex-pathify";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import pathify from '@/plugins/vuex-pathify';
 
 // Modules
-import * as modules from "./modules";
+import * as modules from './modules';
 
 Vue.use(Vuex);
 
@@ -12,16 +12,26 @@ const store = new Vuex.Store({
   modules,
   plugins: [pathify.plugin],
   state: {
-    message: "Hello",
+    message: 'Hello',
+    data: [],
+    today: '',
   },
   mutations: {
     changeMessage(state, newMsg) {
       state.message = newMsg;
     },
+    getData(state, data) {
+      state.data = data;
+      state.today = data.today;
+    },
   },
   actions: {
     callMutation({ state, commit }, { newMsg }) {
-      commit("changeMessage", newMsg);
+      commit('changeMessage', newMsg);
+    },
+    getUserData({ state, commit }, { data }) {
+      console.log(state);
+      commit('getData', data);
     },
   },
   getters: {
@@ -32,12 +42,12 @@ const store = new Vuex.Store({
 });
 
 store.subscribe((mutation) => {
-  if (!mutation.type.startsWith("user/")) return;
+  if (!mutation.type.startsWith('user/')) return;
 
-  store.dispatch("user/update", mutation);
+  store.dispatch('user/update', mutation);
 });
 
-store.dispatch("app/init");
+store.dispatch('app/init');
 
 export default store;
 

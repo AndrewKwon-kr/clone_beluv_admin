@@ -6,6 +6,9 @@
       </div>
     </v-row>
     <v-row v-else>
+      <div class="float-right">
+        <a-button @click="getData" :loading="reloadLoading"> 새로고침 </a-button>
+      </div>
       <div class="dashbord-card-wrapper">
         <v-col v-for="({ actionIcon, actionText, ...attrs }, i) in stats" :key="i" cols="12" md="6" lg="3">
           <material-stat-card v-bind="attrs">
@@ -19,7 +22,10 @@
         </v-col>
       </div>
     </v-row>
-    <label>{{ getMsg }}</label>
+    <!-- vuex 연습 -->
+    <a-button @click="onChangedMsg">버튼</a-button>
+    <h1>오늘 가입회원 : {{ getToday() }}</h1>
+    <!-- end -->
     <LineChartGenerator
       :chart-options="chartOptions"
       :chart-data="chartData"
@@ -60,6 +66,7 @@ export default {
   },
   methods: {
     async getData() {
+      this.reloadLoading = true;
       const res = await getAppUserInfo();
 
       if (res.status === 200) {
@@ -67,18 +74,25 @@ export default {
         this.stats = this.stats.map((stat) => {
           return {
             ...stat,
-            value: Intl.NumberFormat().format(this.items[stat.value]),
+            value: Number(stat.value.substring(0, 1)) ? stat.value : Intl.NumberFormat().format(this.items[stat.value]),
           };
         });
       }
+
       setTimeout(() => {
         this.loading = false;
-      }, 200);
+        this.reloadLoading = false;
+      }, 1000);
     },
     onChangedMsg() {
       this.$store.dispatch('callMutation', { newMsg: 'World !!' });
+      this.$store.dispatch('getUserData', { data: this.items });
+    },
+    getToday() {
+      return this.$store.state.data?.today || '아직 모름';
     },
   },
+
   async mounted() {
     await this.getData();
   },
@@ -118,13 +132,14 @@ export default {
     return {
       indicator: <a-icon type="loading" style="font-size: 48px" spin />,
       loading: true,
+      reloadLoading: false,
       items: {},
       stats: [
         {
           actionIcon: 'mdi-alpha-a-box-outline',
           actionText: '10만 가즈아...!',
           color: '#FD9A13',
-          icon: 'mdi-account-multiple',
+          icon: 'mdi-account-group',
           title: '총 회원수',
           value: 'all',
         },
@@ -148,7 +163,7 @@ export default {
           actionIcon: 'mdi-alpha-m-box-outline',
           actionText: '이번달 가입자분들',
           color: 'info',
-          icon: 'mdi-account-group',
+          icon: 'mdi-account-multiple',
           title: '이번달 가입회원',
           value: 'month',
         },
@@ -206,5 +221,11 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100vw;
+}
+
+.float-right {
+  width: 100%;
+  padding: 0 20px;
+  text-align: right;
 }
 </style>

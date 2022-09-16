@@ -10,15 +10,8 @@
     app
     width="260"
   >
-    <template
-      v-if="drawerImage"
-      #img="props"
-    >
-      <v-img
-        :key="image"
-        :gradient="gradient"
-        v-bind="props"
-      />
+    <template v-if="drawerImage" #img="props">
+      <v-img :key="image" :gradient="gradient" v-bind="props" />
     </template>
 
     <div class="px-2">
@@ -34,40 +27,31 @@
 </template>
 
 <script>
-  // Utilities
-  import { get, sync } from 'vuex-pathify'
+// Utilities
+import { get, sync } from 'vuex-pathify';
 
-  export default {
-    name: 'DefaultDrawer',
+export default {
+  name: 'DefaultDrawer',
 
-    components: {
-      DefaultDrawerHeader: () => import(
+  components: {
+    DefaultDrawerHeader: () =>
+      import(
         /* webpackChunkName: "default-drawer-header" */
         './widgets/DrawerHeader'
       ),
-      DefaultList: () => import(
+    DefaultList: () =>
+      import(
         /* webpackChunkName: "default-list" */
         './List'
       ),
-    },
+  },
 
-    computed: {
-      ...get('user', [
-        'dark',
-        'gradient',
-        'image',
-      ]),
-      ...get('app', [
-        'items',
-        'version',
-      ]),
-      ...sync('app', [
-        'drawer',
-        'drawerImage',
-        'mini',
-      ]),
-    },
-  }
+  computed: {
+    ...get('user', ['dark', 'gradient', 'image']),
+    ...get('app', ['items', 'version']),
+    ...sync('app', ['drawer', 'drawerImage', 'mini']),
+  },
+};
 </script>
 
 <style lang="sass">
