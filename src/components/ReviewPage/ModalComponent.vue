@@ -88,9 +88,8 @@ export default {
         response.data.data.forEach((element, index) => {
           element.no = response.data.data.length - index;
         });
-        // console.log(response.data.data)
         this.productData = response.data.data;
-        this.$parent.loading = false;
+        this.$emit('setLoading');
       }
     },
     async setReviewRating() {

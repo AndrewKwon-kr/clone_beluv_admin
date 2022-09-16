@@ -19,7 +19,7 @@
       />
     </div>
     <ReviewTableVue :filteredData="filteredData" />
-    <ModalComponent :data="modalValue" :visible="visible" :loading="loading" />
+    <ModalComponent :data="modalValue" :visible="visible" :loading="loading" @setLoading="setLoading" />
   </v-container>
 </template>
 
@@ -79,6 +79,10 @@ export default {
       setTimeout(() => {
         this.modalValue = [];
       }, 100);
+    },
+    setLoading() {
+      console.log('!!!!!');
+      this.loading = !this.loading;
     },
   },
   watch: {
